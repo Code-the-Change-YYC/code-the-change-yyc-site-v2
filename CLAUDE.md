@@ -142,3 +142,29 @@ known Next 16 Turbopack + Tailwind v4 HMR interaction. Fall back to
   to pages yet.
 - **Brand assets.** The old repo's SVGs are badly unoptimized (one is 10.8 MB,
   four role icons are 914 KB each). Migration means renaming _and_ running SVGO.
+
+## Deployment
+
+The live site is hosted on **Vercel** via the GitHub integration — there is no
+deploy workflow in the repo, and the old site has no `vercel.json` either. All
+build settings live in the Vercel dashboard.
+
+A Vercel project already exists for this repo
+(`code-the-change-yyc/code-the-change-yyc-site-v2`), and its first build of the
+scaffold **failed** while the identical build passed in GitHub Actions — so the
+problem is project configuration on Vercel's side (likely Node version,
+framework preset, or root directory, since the project was created while the
+repo was still empty), not this code.
+
+Automatic deployments are therefore **switched off** in `vercel.json`:
+
+```json
+{ "git": { "deploymentEnabled": false } }
+```
+
+This is deliberate and temporary. v2 is not launching yet, and a permanently
+red check trains people to ignore CI. **To re-enable**, someone with Vercel
+dashboard access should confirm the project's build settings (Framework:
+Next.js, Node: 22.x, Root Directory: repo root, Install Command: default so it
+picks up pnpm), then delete `vercel.json` or set `deploymentEnabled` back to
+`true`.
