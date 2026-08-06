@@ -1,0 +1,9 @@
+/*
+ * Tailwind CSS v4 — CSS-first configuration.
+ * There is intentionally no tailwind.config.js; v4 auto-detects sources and
+ * takes its theme from `@theme` blocks in CSS. See CLAUDE.md.
+ *
+ * Brand design tokens (the CTC palette, Omnes font wiring) are NOT defined yet.
+ * They land in the design-system pass — see docs/design-system.md.
+ */
+@import "tailwindcss";
