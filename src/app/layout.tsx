@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 
+import { Header } from "@/components/header";
 import { SITE_URL } from "@/lib/site";
 
 // TODO(design): swap the system font stack for self-hosted Omnes via
@@ -30,8 +31,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="h-full antialiased">
-      {/* TODO(design): site nav goes here */}
-      <body className="flex min-h-full flex-col">{children}</body>
+      <body className="flex min-h-full flex-col">
+        <Header />
+        {children}
+      </body>
       {/* TODO(design): site footer goes here */}
     </html>
   );
