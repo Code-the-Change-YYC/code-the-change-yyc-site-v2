@@ -69,8 +69,7 @@ It is out of `experimental.*` in Next 16 but still opt-in, and it switches the w
 
 ```
 src/app/                    routes (one dir per page, all unstyled stubs)
-src/app/api/draft/          enable Contentful draft mode
-src/app/api/disable-draft/  exit draft mode
+src/app/api/draft/          enable Contentful draft mode (disable-draft/ exits it)
 src/app/api/revalidate/     Contentful webhook → revalidateTag
 src/lib/contentful/fetch.ts GraphQL transport — the only way to talk to Contentful
 src/lib/contentful/tags.ts  cache tags + content type IDs
@@ -96,4 +95,5 @@ pnpm format        # prettier --write .
 - **Brand assets.** Old repo's SVGs are unoptimized and need renaming + SVGO before reuse.
 
 ## Deployment
+
 Hosted on **Vercel** via the GitHub integration; no deploy workflow lives in this repo. A Vercel project exists, but its first build failed for project-config reasons (not this code), so auto-deploy is off via `vercel.json` (`{ "git": { "deploymentEnabled": false } }`). To re-enable: confirm the dashboard build settings (Framework: Next.js, Node 22.x, Root Directory: repo root), then delete `vercel.json` or set `deploymentEnabled: true`.
