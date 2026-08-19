@@ -73,7 +73,7 @@ export function Header() {
   const menuPanelId = useId();
 
   return (
-    <header className="sticky top-4 z-50 flex justify-center px-4">
+    <header className="fixed top-4 inset-x-0 z-50 flex justify-center px-4">
       {/* Default width nav (Figma node 596:1541) — md and up. */}
       <nav
         aria-label="Primary"
