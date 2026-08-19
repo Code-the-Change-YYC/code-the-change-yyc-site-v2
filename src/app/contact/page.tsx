@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import ContactForm from "../../components/ContactForm.jsx";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -10,6 +11,7 @@ export default function Page() {
   return (
     <main>
       <h1>Contact</h1>
+      <ContactForm />
     </main>
   );
 }
