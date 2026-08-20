@@ -1,23 +1,20 @@
-'use client'
+"use client";
 
 const InputField = ({ name, inputType = "text", placeholder }) => {
-    return (
-      <div className="mb-4 w-full">
-        <label
-          className="block text-sm/5 pl-4 mb-2"
-          htmlFor={ name.toLowerCase() }
-        >
-            {name}
-        </label>
-        <input
-          className="block border border-gray-800 rounded-xl py-3 pr-3 pl-4 w-full"
-          type={inputType}
-          id={ name.toLowerCase() }
-          name={ name.toLowerCase() }
-          placeholder={placeholder}
-          required
-        />
-      </div>
+  return (
+    <div className="mb-4 w-full">
+      <label className="mb-2 block pl-4 text-sm/5" htmlFor={name.toLowerCase()}>
+        {name}
+      </label>
+      <input
+        className="block w-full rounded-xl border border-gray-800 py-3 pr-3 pl-4"
+        type={inputType}
+        id={name.toLowerCase()}
+        name={name.toLowerCase()}
+        placeholder={placeholder}
+        required
+      />
+    </div>
   );
 };
 
@@ -27,36 +24,48 @@ const ContactForm = () => {
 
     const form = e.target;
     const formData = new FormData(form);
-    const formJson = Object.fromEntries( formData.entries() );
+    const formJson = Object.fromEntries(formData.entries());
 
     form.reset();
 
     //Logging the data for now, might be used for something later
-    console.log( formJson );
+    console.log(formJson);
 
     alert("Your message has been received!");
-  }
+  };
 
   return (
     <div className="font-omnes text-grey-800">
       <p className="text-2xl">
-        Wanna connect with us about a project, partnership, or anything else? Shoot us an email at <a className="font-semibold" href="mailto:codethechangeyyc@gmail.com!">codethechangeyyc@gmail.com</a>!
+        Wanna connect with us about a project, partnership, or anything else?
+        Shoot us an email at{" "}
+        <a className="font-semibold" href="mailto:codethechangeyyc@gmail.com!">
+          codethechangeyyc@gmail.com
+        </a>
+        !
       </p>
       <form className="mt-8 flex flex-col gap-4" onSubmit={handleSubmit}>
         <div className="md:flex md:justify-between md:gap-6">
           <InputField name="Name" placeholder="Your full name" />
-          <InputField name="Email" inputType="email" placeholder="you@example.com" />
+          <InputField
+            name="Email"
+            inputType="email"
+            placeholder="you@example.com"
+          />
         </div>
         <InputField name="Subject" placeholder="Ex: Partnership Inquiry" />
-        <InputField name="Message" placeholder="Anything you'd like us to know" />
+        <InputField
+          name="Message"
+          placeholder="Anything you'd like us to know"
+        />
         <button
-          className="cursor-pointer flex justify-center content-center gap-4 mt-4 rounded-xl px-3 py-2 bg-purple-500 text-xl font-semibold text-white w-full"
+          className="mt-4 flex w-full cursor-pointer content-center justify-center gap-4 rounded-xl bg-purple-500 px-3 py-2 text-xl font-semibold text-white"
           type="submit"
         >
           Send Your Message
           {/*A crude paper airplane svg, might be better to replace it with an image*/}
           <svg
-            className="block stroke-current stroke-3 fill-none"
+            className="block fill-none stroke-current stroke-3"
             aria-hidden="true"
             width="40"
             height="30"
