@@ -22,14 +22,14 @@ export default function PageHero({ title, children }: PageHeroProps) {
           >
             <path
               d="M4 10 C 50 3, 130 3, 176 12"
-              stroke="#7054FD"
+              className="stroke-purple-500"
               strokeWidth="6"
               strokeLinecap="round"
               fill="none"
             />
             <path
               d="M8 18 C 55 12, 125 11, 168 18"
-              stroke="#7054FD"
+              className="stroke-purple-500"
               strokeWidth="6"
               strokeLinecap="round"
               fill="none"
@@ -45,14 +45,14 @@ export default function PageHero({ title, children }: PageHeroProps) {
         >
           <path
             d="M8 16 13 8"
-            stroke="#FE4D6E"
+            className="stroke-red-500"
             strokeWidth="3"
             strokeLinecap="round"
             fill="none"
           />
           <path
             d="M12 18 20 12"
-            stroke="#FE4D6E"
+            className="stroke-red-500"
             strokeWidth="3"
             strokeLinecap="round"
             fill="none"
