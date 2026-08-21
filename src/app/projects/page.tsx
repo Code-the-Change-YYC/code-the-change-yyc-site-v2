@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import ProjectsSection from "../../components/projectSection";
 
 export const metadata: Metadata = {
   title: "Projects",
@@ -10,6 +11,8 @@ export default function Page() {
   return (
     <main>
       <h1>Projects</h1>
+      <h1>Code Contributions</h1>
+      <ProjectsSection />
     </main>
   );
 }
