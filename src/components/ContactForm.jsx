@@ -1,6 +1,6 @@
 "use client";
 
-const InputField = ({ name, inputType = "text", placeholder }) => {
+function InputField({ name, inputType = "text", placeholder }) {
   return (
     <div className="mb-4 w-full">
       <label className="mb-2 block pl-4 text-sm/5" htmlFor={name.toLowerCase()}>
@@ -16,10 +16,10 @@ const InputField = ({ name, inputType = "text", placeholder }) => {
       />
     </div>
   );
-};
+}
 
-const ContactForm = () => {
-  const handleSubmit = (e) => {
+export default function ContactForm() {
+  function handleSubmit(e) {
     e.preventDefault();
 
     const form = e.target;
@@ -32,7 +32,7 @@ const ContactForm = () => {
     console.log(formJson);
 
     alert("Your message has been received!");
-  };
+  }
 
   return (
     <div className="font-omnes text-grey-800">
@@ -77,6 +77,4 @@ const ContactForm = () => {
       </form>
     </div>
   );
-};
-
-export default ContactForm;
+}
