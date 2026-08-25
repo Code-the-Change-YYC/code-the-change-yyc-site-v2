@@ -10,8 +10,9 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <main>
-      <h1>Contact</h1>
-      <ContactForm />
+      <div className="mt-15 flex justify-center gap-20 px-32">
+        <ContactForm />
+      </div>
     </main>
   );
 }
