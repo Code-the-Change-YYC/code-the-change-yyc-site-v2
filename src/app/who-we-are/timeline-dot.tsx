@@ -2,7 +2,6 @@ type Props = {
   className?: string;
 };
 
-
 export function TimelineDot({ className }: Props) {
   return (
     <svg
