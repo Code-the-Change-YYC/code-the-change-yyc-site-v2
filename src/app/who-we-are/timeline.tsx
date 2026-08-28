@@ -48,8 +48,7 @@ export function Timeline() {
       </div>
 
       <p className="mx-auto mt-16 max-w-xl text-center font-omnes text-2xl text-grey-800">
-        We're coding towards a brighter future. Will you be part of our
-        next chapter?
+        {"We're coding towards a brighter future. Will you be part of our next chapter?"}
       </p>
     </section>
   );
