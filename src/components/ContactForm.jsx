@@ -7,7 +7,7 @@ function InputField({ name, inputType = "text", placeholder }) {
         {name}
       </label>
       <input
-        className="block w-full rounded-xl border border-gray-800 py-3 pr-3 pl-4"
+        className="border-grey-800 block w-full rounded-xl border py-3 pr-3 pl-4"
         type={inputType}
         id={name.toLowerCase()}
         name={name.toLowerCase()}
@@ -39,7 +39,7 @@ export default function ContactForm() {
       <p className="text-2xl">
         Wanna connect with us about a project, partnership, or anything else?
         Shoot us an email at{" "}
-        <a className="font-semibold" href="mailto:codethechangeyyc@gmail.com!">
+        <a className="font-semibold" href="mailto:codethechangeyyc@gmail.com">
           codethechangeyyc@gmail.com
         </a>
         !
@@ -54,10 +54,19 @@ export default function ContactForm() {
           />
         </div>
         <InputField name="Subject" placeholder="Ex: Partnership Inquiry" />
-        <InputField
-          name="Message"
-          placeholder="Anything you'd like us to know"
-        />
+        <div className="mb-4 w-full">
+          <label className="mb-2 block pl-4 text-sm/5" htmlFor="message">
+            Message
+          </label>
+          <textarea
+            className="border-grey-800 block w-full rounded-xl border py-3 pr-3 pl-4"
+            id="message"
+            name="message"
+            placeholder="Anything you'd like us to know"
+            rows="1"
+            required
+          />
+        </div>
         <button
           className="mt-4 flex w-full cursor-pointer content-center justify-center gap-4 rounded-xl bg-purple-500 px-3 py-2 text-xl font-semibold text-white"
           type="submit"
