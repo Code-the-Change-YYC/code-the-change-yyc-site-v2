@@ -7,9 +7,18 @@ const TILE_COLS = 30; // columns per repeating tile (tile width = CELL * TILE_CO
 // later rows are the "dissolve" — sparser, and not always contiguous with
 // the row above, matching the scattered look in the reference design.
 const PATTERN: number[][] = [
-  [1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 0, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 0, 1, 0],
-  [0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 1],
-  [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0],
+  [
+    1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 0, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0,
+    1, 1, 0, 1, 0,
+  ],
+  [
+    0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1,
+    0, 0, 1, 0, 1,
+  ],
+  [
+    1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0,
+    0, 0, 0, 1, 0,
+  ],
 ];
 
 function buildTileDataUri(color: string) {
@@ -18,7 +27,9 @@ function buildTileDataUri(color: string) {
   const rects = PATTERN.flatMap((row, r) =>
     row.flatMap((filled, c) =>
       filled
-        ? [`<rect x="${c * CELL}" y="${r * CELL}" width="${CELL}" height="${CELL}" fill="${color}"/>`]
+        ? [
+            `<rect x="${c * CELL}" y="${r * CELL}" width="${CELL}" height="${CELL}" fill="${color}"/>`,
+          ]
         : [],
     ),
   ).join("");
@@ -52,7 +63,10 @@ export default function HeaderBackground({
     <div className={`relative isolate ${className}`} style={{ minHeight }}>
       {/* Solid field behind the nav/hero content. Contained by `isolate`
           above so this can't escape and paint behind the rest of the page. */}
-      <div className="absolute inset-0 -z-10" style={{ backgroundColor: color }} />
+      <div
+        className="absolute inset-0 -z-10"
+        style={{ backgroundColor: color }}
+      />
 
       {/* Padded content area — gives nav + hero text room to breathe instead
           of sitting flush against the edges of the lavender field.

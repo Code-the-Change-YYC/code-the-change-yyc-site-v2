@@ -13,9 +13,8 @@ export default function Page() {
       <PageHero title="Events">
         Looking to work with an energetic and enthusiastic group of
         postsecondary students on improving awareness around technology for
-        social impact? We host a variety of workshops and hackathons every
-        year, blending together ideas around software development and
-        social good.
+        social impact? We host a variety of workshops and hackathons every year,
+        blending together ideas around software development and social good.
       </PageHero>
     </HeaderBackground>
   );

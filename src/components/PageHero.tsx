@@ -9,7 +9,7 @@ interface PageHeroProps {
 export default function PageHero({ title, children }: PageHeroProps) {
   return (
     <div className="mx-auto flex w-full max-w-5xl flex-col items-center gap-8 md:flex-row md:justify-center md:gap-32">
-      <h1 className="relative flex w-fit shrink-0 items-start font-omnes text-6xl leading-none font-extrabold text-[#2910A7]">
+      <h1 className="font-omnes relative flex w-fit shrink-0 items-start text-6xl leading-none font-extrabold text-[#2910A7]">
         <span className="relative">
           {title}
           {/* Double underline swoosh. Fixed height + preserveAspectRatio
@@ -60,7 +60,7 @@ export default function PageHero({ title, children }: PageHeroProps) {
         </svg>
       </h1>
 
-      <p className="max-w-xl font-omnes text-base leading-relaxed text-grey-800">
+      <p className="font-omnes text-grey-800 max-w-xl text-base leading-relaxed">
         {children}
       </p>
     </div>
