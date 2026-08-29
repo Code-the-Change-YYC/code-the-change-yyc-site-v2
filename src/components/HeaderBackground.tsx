@@ -1,15 +1,15 @@
 import type { ReactNode } from "react";
 
-const CELL = 20; // px per pixel-grid cell
-const TILE_COLS = 10; // columns per repeating tile (tile width = CELL * TILE_COLS)
+const CELL = 30; // px per pixel-grid cell
+const TILE_COLS = 30; // columns per repeating tile (tile width = CELL * TILE_COLS)
 
 // 1 = filled cell, 0 = empty. Row 0 sits against the header's bottom edge;
 // later rows are the "dissolve" — sparser, and not always contiguous with
 // the row above, matching the scattered look in the reference design.
 const PATTERN: number[][] = [
-  [1, 1, 0, 1, 1, 1, 1, 0, 1, 1],
-  [0, 1, 0, 0, 1, 0, 1, 0, 0, 0],
-  [0, 0, 0, 1, 0, 0, 1, 0, 0, 1],
+  [1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 1, 0, 1, 0, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 0, 1, 1, 0, 1, 0],
+  [0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 1],
+  [1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0],
 ];
 
 function buildTileDataUri(color: string) {
