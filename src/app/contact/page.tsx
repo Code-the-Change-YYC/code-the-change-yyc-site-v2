@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import ContactForm from "@/components/ContactForm.jsx";
+import ContactHero from "@/components/ContactHero.jsx";
 
 export const metadata: Metadata = {
   title: "Contact",
@@ -10,7 +11,8 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <main>
-      <div className="mt-15 flex justify-center gap-20 px-32">
+      <div className="mt-15 px-10 md:flex md:justify-center md:gap-20 md:px-32">
+        <ContactHero />
         <ContactForm />
       </div>
     </main>
