@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 
+import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
 import { SITE_URL } from "@/lib/site";
 
@@ -33,9 +34,9 @@ export default function RootLayout({
     <html lang="en" className="h-full antialiased">
       <body className="flex min-h-full flex-col">
         <Header />
-        {children}
+        <div className="flex-1">{children}</div>
+        <Footer />
       </body>
-      {/* TODO(design): site footer goes here */}
     </html>
   );
 }
