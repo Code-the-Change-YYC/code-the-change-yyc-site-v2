@@ -46,10 +46,3 @@
 @theme inline {
   --font-omnes: "Omnes", ui-rounded, "Nunito", sans-serif;
 }
-
-/*Instead of hardcoding a fixed header, anything that needs to clear the fixed
-* header can read this var, instead of hardcoding its own padding
-*/
-:root {
-  --header-clearance: 5rem;
-}
