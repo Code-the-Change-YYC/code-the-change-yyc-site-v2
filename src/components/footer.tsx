@@ -41,18 +41,9 @@ export function Footer() {
               SVG; same rationale as src/components/header.tsx Logo.
             */}
             <img
-              src="/brand/mark.svg"
-              alt=""
-              width={40}
-              height={40}
-              className="h-10 w-10 shrink-0"
-            />
-            <img
-              src="/brand/wordmark-white.svg"
+              src="/brand/FullLogo_FullWhite 1.svg"
               alt="Code the Change YYC"
-              width={160}
-              height={24}
-              className="h-6 w-auto"
+              className="h-22 w-auto md:h-45"
             />
           </div>
 
