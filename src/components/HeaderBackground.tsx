@@ -64,7 +64,7 @@ export default function HeaderBackground({
       {/* Solid field behind the nav/hero content. Contained by `isolate`
           above so this can't escape and paint behind the rest of the page. */}
       <div
-        className="absolute inset-0 -z-10"
+        className="absolute inset-x-0 -top-20 bottom-20 -z-10"
         style={{ backgroundColor: color }}
       />
 
@@ -74,7 +74,7 @@ export default function HeaderBackground({
           `fixed`, so it's not in the document flow here and this content
           has to clear the pill (~64px) plus its `top-4` offset (16px)
           itself, or the hero row renders underneath it. */}
-      <div className="px-6 pt-28 pb-10 md:px-10 md:pt-32 md:pb-14">
+      <div className="px-6 pt-14 pb-10 md:px-10 md:pt-16 md:pb-14">
         {children}
       </div>
 
@@ -82,7 +82,7 @@ export default function HeaderBackground({
           section comes next. Needs an ancestor that doesn't clip overflow. */}
       <div
         aria-hidden
-        className="absolute inset-x-0 top-full"
+        className="absolute inset-x-0 top-full -mt-20"
         style={{
           height: tileHeight,
           backgroundImage: buildTileDataUri(color),

@@ -1,15 +1,15 @@
 // src/components/PageHero.tsx
 import type { ReactNode } from "react";
 
-interface PageHeroProps {
+interface EventHeroProps {
   title: string;
   children: ReactNode;
 }
 
-export default function PageHero({ title, children }: PageHeroProps) {
+export default function EventHero({ title, children }: EventHeroProps) {
   return (
     <div className="mx-auto flex w-full max-w-5xl flex-col items-center gap-8 md:flex-row md:justify-center md:gap-32">
-      <h1 className="font-omnes relative flex w-fit shrink-0 items-start text-6xl leading-none font-extrabold text-[#2910A7]">
+      <h1 className="font-omnes relative flex w-fit shrink-0 items-start text-6xl leading-none font-extrabold text-[var(--color-purple-800)]">
         <span className="relative">
           {title}
           {/* Double underline swoosh. Fixed height + preserveAspectRatio

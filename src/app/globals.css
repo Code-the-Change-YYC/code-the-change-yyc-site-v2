@@ -19,6 +19,7 @@
 @theme {
   --color-purple-500: #7054fd;
   --color-purple-400: #a688ff;
+  --color-purple-800: #2911A7;
   --color-red-500: #fe4d6e;
   --color-red-200: #ffd2dc;
   --color-orange-500: #fe6a55;
@@ -44,4 +45,11 @@
  */
 @theme inline {
   --font-omnes: "Omnes", ui-rounded, "Nunito", sans-serif;
+}
+
+/*Instead of hardcoding a fixed header, anything that needs to clear the fixed
+* header can read this var, instead of hardcoding its own padding
+*/
+:root {
+  --header-clearance: 5rem;
 }
