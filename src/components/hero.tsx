@@ -2,22 +2,6 @@ import Link from "next/link";
 
 import { NEWSLETTER_SIGNUP_URL } from "@/lib/newsletter";
 
-/**
- * Homepage hero — headline, subtext, newsletter CTA.
- *
- * Desktop type matches the "CTC website Redesign 2026" homepage frame
- * (fileKey C7O1lsl8HhZw9q7RxHHcWZ): purple/500 Omnes extra-bold headline,
- * grey/600 subtext, purple pill with envelope. Background illustration is
- * out of scope for WB-5.
- *
- * The mockup is a fixed 1400px artboard with no mobile frame. Below `md`
- * this component invents the layout: the headline floor drops below the
- * documented 56px spec so the word "together." fits a 320px viewport, the
- * line break after "better" is released so the title can wrap to three
- * lines, and the CTA stays a centered pill (not full-bleed) with a 44px
- * tap target.
- */
-
 function EnvelopeIcon({ className }: { className?: string }) {
   return (
     <svg
@@ -38,7 +22,14 @@ function EnvelopeIcon({ className }: { className?: string }) {
 
 export function Hero() {
   return (
-    <section className="flex flex-col items-center px-6 pt-10 pb-16 text-center sm:pt-12 md:px-8 md:pt-20 md:pb-24">
+    <section className="relative isolate flex flex-col items-center overflow-hidden px-6 pt-10 pb-16 text-center sm:pt-12 md:px-8 md:pt-20 md:pb-24">
+
+        <img
+        src="/brand/hero-bg.svg"
+        alt=""
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 -z-10 hidden h-full w-full object-cover md:block"
+      />
       <h1 className="font-omnes max-w-4xl text-[clamp(2.5rem,1.25rem+6.5vw,6.5rem)] leading-[0.98] font-extrabold tracking-[-0.02em] text-pretty text-purple-500">
         Coding a better
         <br className="hidden md:block" /> world together.
