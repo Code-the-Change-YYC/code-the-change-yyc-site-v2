@@ -1,4 +1,9 @@
 import type { Metadata } from "next";
+import Image from "next/image";
+import styles from "./about.module.css";
+
+const MISSION =
+  "Code the Change YYC is a Calgary-based initiative where students with a passion for technology volunteer their time to work on projects for non-profit causes as a way to grow their skills, gain experience, attain mentorship, and give back to the community.";
 
 export const metadata: Metadata = {
   title: "About",
