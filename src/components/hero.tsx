@@ -23,8 +23,7 @@ function EnvelopeIcon({ className }: { className?: string }) {
 export function Hero() {
   return (
     <section className="relative isolate flex flex-col items-center overflow-hidden px-6 pt-10 pb-16 text-center sm:pt-12 md:px-8 md:pt-20 md:pb-24">
-
-        <img
+      <img
         src="/brand/hero-bg.svg"
         alt=""
         aria-hidden="true"
