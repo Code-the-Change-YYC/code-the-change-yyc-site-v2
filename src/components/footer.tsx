@@ -4,7 +4,13 @@ import { CONTACT_LINKS, NAV_LINKS, SOCIAL_LINKS } from "@/lib/social";
 
 type FooterLink = { label: string; href: string };
 
-function FooterColumn({ title, links }: { title: string; links: readonly FooterLink[] }) {
+function FooterColumn({
+  title,
+  links,
+}: {
+  title: string;
+  links: readonly FooterLink[];
+}) {
   return (
     <div>
       <p className="font-omnes text-sm font-bold text-white">{title}</p>
@@ -64,4 +70,3 @@ export function Footer() {
     </footer>
   );
 }
-
