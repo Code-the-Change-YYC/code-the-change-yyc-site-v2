@@ -1,6 +1,14 @@
 "use client";
 
-function InputField({ name, inputType = "text", placeholder }) {
+function InputField({
+  name,
+  inputType,
+  placeholder,
+}: {
+  name: string;
+  inputType: string;
+  placeholder: string;
+}) {
   return (
     <div className="mb-4 w-full">
       <label className="mb-2 block pl-4 text-sm/5" htmlFor={name.toLowerCase()}>
@@ -19,7 +27,7 @@ function InputField({ name, inputType = "text", placeholder }) {
 }
 
 export default function ContactForm() {
-  function handleSubmit(e) {
+  function handleSubmit(e: React.SubmitEvent) {
     e.preventDefault();
 
     const form = e.target;
@@ -46,14 +54,22 @@ export default function ContactForm() {
       </p>
       <form className="mt-8 flex flex-col gap-4" onSubmit={handleSubmit}>
         <div className="md:flex md:justify-between md:gap-6">
-          <InputField name="Name" placeholder="Your full name" />
+          <InputField
+            name="Name"
+            inputType="text"
+            placeholder="Your full name"
+          />
           <InputField
             name="Email"
             inputType="email"
             placeholder="you@example.com"
           />
         </div>
-        <InputField name="Subject" placeholder="Ex: Partnership Inquiry" />
+        <InputField
+          name="Subject"
+          inputType="text"
+          placeholder="Ex: Partnership Inquiry"
+        />
         <div className="mb-4 w-full">
           <label className="mb-2 block pl-4 text-sm/5" htmlFor="message">
             Message
@@ -63,7 +79,7 @@ export default function ContactForm() {
             id="message"
             name="message"
             placeholder="Anything you'd like us to know"
-            rows="1"
+            rows={1}
             required
           />
         </div>
