@@ -1,9 +1,9 @@
-const EVENT_HERO_CLASS =
+const CONTACT_HERO_CLASS =
   "relative w-xs shrink-0 grow-0 basis-xs pb-10 md:flex md:flex-col md:justify-center md:pb-0";
 
-export default function EventHero() {
+export default function ContactHero() {
   return (
-    <div className={EVENT_HERO_CLASS}>
+    <div className={CONTACT_HERO_CLASS}>
       <div className="relative h-fit w-full pb-10 md:absolute md:top-0 md:left-0">
         <h1 className="font-omnes text-[57px] font-semibold text-purple-500">
           Contact us

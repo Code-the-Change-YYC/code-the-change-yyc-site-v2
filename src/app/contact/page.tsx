@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
-import ContactForm from "@/components/ContactForm.jsx";
-import ContactHero from "@/components/ContactHero.jsx";
+import ContactForm from "@/components/ContactForm";
+import ContactHero from "@/components/ContactHero";
 
 export const metadata: Metadata = {
   title: "Contact",
