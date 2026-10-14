@@ -1,16 +1,13 @@
 import type { Metadata } from "next";
+import { AboutHeading } from "./page-heading";
+import { PixelDivider } from "./pixel-divider";
+import { Timeline } from "./timeline";
+import { Team } from "./team";
 
 export const metadata: Metadata = {
   title: "About",
 };
 
-// TODO(design): build this page from the Direction 05 mockup.
-// TODO(contentful): wire up the content types this page needs.
-import { AboutHeading } from "./page-heading";
-import { PixelDivider } from "./pixel-divider";
-import { Timeline } from "./timeline";
-
-// src/app/about/page.tsx
 export default function Page() {
   return (
     <main>
@@ -25,8 +22,9 @@ export default function Page() {
           </p>
         </div>
       </section>
-      <PixelDivider className="hidden h-[120px] w-full md:block" />
+      <PixelDivider className="w-full" />
       <Timeline />
+      <Team />
     </main>
   );
 }
