@@ -136,6 +136,16 @@ type UpcomingEventsQueryResult = {
 export async function getUpcomingEvents({
   preview = false,
 }: { preview?: boolean } = {}): Promise<EventCardDisplay[]> {
+  // No Contentful token (e.g. GitHub Actions CI, or a fresh clone without
+  // .env.local): skip the request and hide the section, instead of failing
+  // the whole build. On Vercel and locally with .env.local this never runs.
+  if (!preview && !process.env.CONTENTFUL_ACCESS_TOKEN) {
+    console.warn(
+      "CONTENTFUL_ACCESS_TOKEN is not set — skipping Upcoming Events.",
+    );
+    return [];
+  }
+
   const data = await contentfulFetch<UpcomingEventsQueryResult>({
     query: UPCOMING_EVENTS_QUERY,
     // Fills in $preview inside the query above.
