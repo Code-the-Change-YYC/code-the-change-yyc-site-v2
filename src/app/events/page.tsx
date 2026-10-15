@@ -1,15 +1,22 @@
 import type { Metadata } from "next";
+import { draftMode } from "next/headers";
+
+import UpcomingEvents from "@/components/upcoming-events";
+import { getUpcomingEvents } from "@/lib/contentful/queries/upcoming-events";
 
 export const metadata: Metadata = {
   title: "Events",
 };
 
-// TODO(design): build this page from the Direction 05 mockup.
-// TODO(contentful): wire up the content types this page needs.
-export default function Page() {
+// TODO(design): build the rest of this page from the Direction 05 mockup.
+export default async function Page() {
+  const { isEnabled: preview } = await draftMode();
+  const upcomingEvents = await getUpcomingEvents({ preview });
+
   return (
     <main>
-      <h1>Events</h1>
+      <h1 className="sr-only">Events</h1>
+      <UpcomingEvents events={upcomingEvents} />
     </main>
   );
 }
