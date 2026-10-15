@@ -1,9 +1,12 @@
 import "server-only";
+import type { Document } from "@contentful/rich-text-types";
 import { contentfulFetch } from "./fetch";
 import type { ContentTypeId } from "./tags";
 
+// Only fields confirmed on the `upcomingEvents` content type are selected:
+// the old site rendered eventName, description (rich text) and image. Add
+// date/location/CTA fields here once they exist in the Contentful model.
 const QUERY = /* GraphQL */ `
-  # Fetch the fields needed to render the upcoming events list.
   query UpcomingEvents {
     upcomingEventsCollection(order: customOrderNumber_ASC) {
       items {
@@ -11,9 +14,15 @@ const QUERY = /* GraphQL */ `
           id
         }
         eventName
+        description {
+          json
+        }
         image {
           url
           title
+          description
+          width
+          height
         }
       }
     }
@@ -24,8 +33,15 @@ interface UpcomingEventsQueryResult {
   upcomingEventsCollection: {
     items: Array<{
       sys: { id: string };
-      eventName: string;
-      image: { url: string; title: string } | null;
+      eventName: string | null;
+      description: { json: Document } | null;
+      image: {
+        url: string;
+        title: string | null;
+        description: string | null;
+        width: number | null;
+        height: number | null;
+      } | null;
     }>;
   };
 }
@@ -33,40 +49,58 @@ interface UpcomingEventsQueryResult {
 export interface UpcomingEvent {
   id: string;
   title: string;
-  dateTime: string | null;
-  location: string | null;
-  tag: string | null;
-  imageUrl: string | null;
-  imageAlt: string;
-  buttonLabel: string | null;
-  buttonLink: string | null;
+  description: Document | null;
+  image: {
+    url: string;
+    alt: string;
+    width: number | null;
+    height: number | null;
+  } | null;
 }
 
-export async function getUpcomingEvents(): Promise<UpcomingEvent[]> {
+/**
+ * Distinguishes "Contentful has no events" from "we couldn't reach
+ * Contentful", so the page can render each case differently instead of
+ * showing an empty list for both.
+ */
+export type UpcomingEventsResult =
+  { ok: true; events: UpcomingEvent[] } | { ok: false; error: string };
+
+// The GraphQL API returns absolute https URLs, unlike the REST/SDK API the
+// old site used, which returns protocol-relative `//images.ctfassets.net/...`.
+// Normalize defensively so both shapes produce a valid URL.
+function toAbsoluteUrl(url: string): string {
+  return url.startsWith("//") ? `https:${url}` : url;
+}
+
+export async function getUpcomingEvents(): Promise<UpcomingEventsResult> {
   try {
-    // Use the shared server-only transport so Contentful caching and tags
-    // remain consistent with the rest of the application.
     const data = await contentfulFetch<UpcomingEventsQueryResult>({
       query: QUERY,
       tags: ["upcomingEvents" satisfies ContentTypeId],
     });
 
-    // Convert Contentful's response into the app-facing event shape.
-    return data.upcomingEventsCollection.items.map((item) => ({
-      id: item.sys.id,
-      title: item.eventName,
-      dateTime: null,
-      location: null,
-      tag: null,
-      imageUrl: item.image?.url ? `https:${item.image.url}` : null,
-      imageAlt: item.image?.title ?? "",
-      buttonLabel: null,
-      buttonLink: null,
-    }));
+    const events = data.upcomingEventsCollection.items
+      // Drafted-but-incomplete entries can come back with a null title.
+      .filter((item) => item.eventName)
+      .map((item) => ({
+        id: item.sys.id,
+        title: item.eventName ?? "",
+        description: item.description?.json ?? null,
+        image: item.image?.url
+          ? {
+              url: toAbsoluteUrl(item.image.url),
+              alt: item.image.description ?? item.image.title ?? "",
+              width: item.image.width,
+              height: item.image.height,
+            }
+          : null,
+      }));
+
+    return { ok: true, events };
   } catch (err) {
-    // Keep the caller's contract simple: a failed request behaves like an
-    // empty result while the error is still visible in server logs.
+    const error = err instanceof Error ? err.message : String(err);
     console.error("Failed to fetch upcoming events from Contentful:", err);
-    return [];
+    return { ok: false, error };
   }
 }
