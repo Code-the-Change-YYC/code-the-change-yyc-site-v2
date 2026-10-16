@@ -1,10 +1,10 @@
 /** Social links — verified against the live site (SocialMediaIcons.jsx). */
 
 export const NAV_LINKS = [
-  { label: "About", href: "/about" },
+  { label: "About", href: "/who-we-are" },
   { label: "Events", href: "/events" },
   { label: "Projects", href: "/projects" },
-  { label: "Contribute", href: "/contribute" },
+  { label: "Contribute", href: "/join" },
   { label: "Contact", href: "/contact" },
 ] as const;
 
