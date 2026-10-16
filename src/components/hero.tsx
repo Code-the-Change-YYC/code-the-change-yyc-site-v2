@@ -24,7 +24,7 @@ export function Hero() {
   return (
     <section className="relative isolate flex flex-col items-center overflow-hidden px-6 pt-10 pb-16 text-center sm:pt-12 md:px-8 md:pt-20 md:pb-24">
       <img
-        src="/brand/hero-bg.svg"
+        src="/brand/hero.png"
         alt=""
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 -z-10 hidden h-full w-full object-cover md:block"
