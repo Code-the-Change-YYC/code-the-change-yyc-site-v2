@@ -1,4 +1,4 @@
-import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 /**
  * WB-45 "Ready to join the change?" panel. Figma join us 539:4217 (desktop),
@@ -54,25 +54,9 @@ export function HomeJoin() {
           ))}
         </ul>
 
-        <Link
-          href="/join"
-          className="text-headline-small inline-flex items-center gap-2 rounded-full px-6 py-4 underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-orange-900"
-        >
+        <Button href="/join" variant="text" icon="arrow-right">
           Learn more
-          <svg
-            aria-hidden="true"
-            focusable="false"
-            viewBox="0 0 20 20"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth={1.75}
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="size-6 shrink-0"
-          >
-            <path d="M4 10h12m-5-5 5 5-5 5" />
-          </svg>
-        </Link>
+        </Button>
       </div>
     </section>
   );

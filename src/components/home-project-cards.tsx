@@ -34,7 +34,7 @@ const SALVATION_LAYERS: Layer[] = [
     src: "/brand/home/project-salvation-schedule.webp",
     place: "left-[19.05%] top-[41.15%] w-[55.24%] h-[36.12%]",
     hover:
-      "group-hover:-translate-x-[15.24cqw] group-hover:-translate-y-[5cqw] group-hover:-rotate-[15deg]",
+      "group-hover:-translate-x-[15.24cqw] group-focus-visible:-translate-x-[15.24cqw] group-hover:-translate-y-[5cqw] group-focus-visible:-translate-y-[5cqw] group-hover:-rotate-[15deg] group-focus-visible:-rotate-[15deg]",
     fit: "contain",
     sizes: "232px",
   },
@@ -42,7 +42,7 @@ const SALVATION_LAYERS: Layer[] = [
     src: "/brand/home/project-salvation-login.webp",
     place: "left-[32.98%] top-[27.03%] w-[30.71%] h-[66.99%]",
     hover:
-      "group-hover:-translate-x-[4.52cqw] group-hover:-translate-y-[19.29cqw] group-hover:-rotate-[9.7deg]",
+      "group-hover:-translate-x-[4.52cqw] group-focus-visible:-translate-x-[4.52cqw] group-hover:-translate-y-[19.29cqw] group-focus-visible:-translate-y-[19.29cqw] group-hover:-rotate-[9.7deg] group-focus-visible:-rotate-[9.7deg]",
     fit: "cover",
     sizes: "130px",
   },
@@ -50,7 +50,7 @@ const SALVATION_LAYERS: Layer[] = [
     src: "/brand/home/project-salvation-survey.webp",
     place: "left-[50.12%] top-[27.03%] w-[30.66%] h-[66.99%]",
     hover:
-      "group-hover:translate-x-[8.43cqw] group-hover:-translate-y-[15.24cqw] group-hover:-rotate-[4.14deg]",
+      "group-hover:translate-x-[8.43cqw] group-focus-visible:translate-x-[8.43cqw] group-hover:-translate-y-[15.24cqw] group-focus-visible:-translate-y-[15.24cqw] group-hover:-rotate-[4.14deg] group-focus-visible:-rotate-[4.14deg]",
     fit: "cover",
     sizes: "130px",
   },
@@ -58,7 +58,7 @@ const SALVATION_LAYERS: Layer[] = [
     src: "/brand/home/project-salvation-logo.webp",
     place: "left-[48.45%] top-[34.69%] w-[25.8%] h-[25.93%]",
     hover:
-      "group-hover:-translate-x-[13.81cqw] group-hover:-translate-y-[11.79cqw] group-hover:-rotate-[24.65deg]",
+      "group-hover:-translate-x-[13.81cqw] group-focus-visible:-translate-x-[13.81cqw] group-hover:-translate-y-[11.79cqw] group-focus-visible:-translate-y-[11.79cqw] group-hover:-rotate-[24.65deg] group-focus-visible:-rotate-[24.65deg]",
     fit: "contain",
     sizes: "110px",
   },
@@ -69,7 +69,7 @@ const SCUBA_LAYERS: Layer[] = [
     src: "/brand/home/project-scuba-1.webp",
     place: "left-[19.64%] top-[27.03%] w-[30.76%] h-[66.99%]",
     hover:
-      "group-hover:-translate-x-[15.24cqw] group-hover:-translate-y-[5cqw] group-hover:-rotate-[15deg]",
+      "group-hover:-translate-x-[15.24cqw] group-focus-visible:-translate-x-[15.24cqw] group-hover:-translate-y-[5cqw] group-focus-visible:-translate-y-[5cqw] group-hover:-rotate-[15deg] group-focus-visible:-rotate-[15deg]",
     fit: "cover",
     sizes: "130px",
   },
@@ -77,7 +77,7 @@ const SCUBA_LAYERS: Layer[] = [
     src: "/brand/home/project-scuba-2.webp",
     place: "left-[32.98%] top-[27.03%] w-[30.71%] h-[66.99%]",
     hover:
-      "group-hover:-translate-x-[4.52cqw] group-hover:-translate-y-[19.29cqw] group-hover:-rotate-[9.7deg]",
+      "group-hover:-translate-x-[4.52cqw] group-focus-visible:-translate-x-[4.52cqw] group-hover:-translate-y-[19.29cqw] group-focus-visible:-translate-y-[19.29cqw] group-hover:-rotate-[9.7deg] group-focus-visible:-rotate-[9.7deg]",
     fit: "cover",
     sizes: "130px",
   },
@@ -85,7 +85,7 @@ const SCUBA_LAYERS: Layer[] = [
     src: "/brand/home/project-scuba-3.webp",
     place: "left-[50.12%] top-[27.03%] w-[30.66%] h-[66.99%]",
     hover:
-      "group-hover:translate-x-[8.43cqw] group-hover:-translate-y-[15.24cqw] group-hover:-rotate-[4.14deg]",
+      "group-hover:translate-x-[8.43cqw] group-focus-visible:translate-x-[8.43cqw] group-hover:-translate-y-[15.24cqw] group-focus-visible:-translate-y-[15.24cqw] group-hover:-rotate-[4.14deg] group-focus-visible:-rotate-[4.14deg]",
     fit: "cover",
     sizes: "130px",
   },
@@ -93,7 +93,7 @@ const SCUBA_LAYERS: Layer[] = [
     src: "/brand/home/project-scuba-icon.webp",
     place: "left-[48.45%] top-[34.69%] w-[25.8%] h-[25.93%]",
     hover:
-      "group-hover:-translate-x-[13.81cqw] group-hover:-translate-y-[11.79cqw] group-hover:-rotate-[24.65deg]",
+      "group-hover:-translate-x-[13.81cqw] group-focus-visible:-translate-x-[13.81cqw] group-hover:-translate-y-[11.79cqw] group-focus-visible:-translate-y-[11.79cqw] group-hover:-rotate-[24.65deg] group-focus-visible:-rotate-[24.65deg]",
     fit: "cover",
     sizes: "110px",
   },
@@ -139,12 +139,12 @@ function ProjectFolderCard({
             className={`size-full rounded-2xl ${SHADOW}`}
           />
         </div>
-        <span className="text-headline-small absolute top-[84.55%] left-[24.74%] transition-[translate,rotate] duration-300 ease-out group-hover:translate-x-[8.48cqw] group-hover:-translate-y-[2.62cqw] group-hover:-rotate-[9.7deg] motion-reduce:transition-none">
+        <span className="text-headline-small absolute top-[84.55%] left-[24.74%] transition-[translate,rotate] duration-300 ease-out group-hover:translate-x-[8.48cqw] group-hover:-translate-y-[2.62cqw] group-hover:-rotate-[9.7deg] group-focus-visible:translate-x-[8.48cqw] group-focus-visible:-translate-y-[2.62cqw] group-focus-visible:-rotate-[9.7deg] motion-reduce:transition-none">
           {name}
         </span>
       </div>
       {/* Blurb is invisible until hover/focus; always shown on touch devices. */}
-      <p className="text-body-large w-[261px] max-w-full opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100 motion-reduce:transition-none [@media(hover:none)]:opacity-100">
+      <p className="text-body-large w-[261px] max-w-full opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100 motion-reduce:transition-none max-md:opacity-100 [@media(hover:none)]:opacity-100">
         {blurb}
       </p>
     </Link>
