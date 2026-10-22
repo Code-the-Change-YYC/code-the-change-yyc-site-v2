@@ -1,5 +1,7 @@
 import "server-only";
 
+import { unstable_rethrow } from "next/navigation";
+
 /**
  * Transport for the Contentful GraphQL Content API.
  *
@@ -96,4 +98,27 @@ export async function contentfulFetch<TData>({
   }
 
   return json.data;
+}
+
+/**
+ * `contentfulFetch` for page sections that must not take the page down.
+ *
+ * Returns `null` instead of throwing when Contentful is unreachable, returns
+ * GraphQL errors, or credentials are missing (fork PRs in CI, a teammate
+ * without a `.env.local`). Callers render an empty state for `null`.
+ *
+ * Next's internal control-flow errors (dynamic-rendering bailouts,
+ * `notFound()`, redirects) are rethrown — swallowing those would silently
+ * break draft mode and static/dynamic detection.
+ */
+export async function contentfulFetchOrNull<TData>(
+  options: ContentfulFetchOptions,
+): Promise<TData | null> {
+  try {
+    return await contentfulFetch<TData>(options);
+  } catch (error) {
+    unstable_rethrow(error);
+    console.error("[contentful]", error);
+    return null;
+  }
 }
