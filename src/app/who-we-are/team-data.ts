@@ -1,10 +1,18 @@
 export const TEAM_QUERY = `
   query TeamMembers {
     adminTeamMemberCollection(order: order_ASC) {
-      items { sys { id } name position linkedin team pfp { url } }
+      items { sys { id } name position linkedin team order isTeamLead pfp { url } }
     }
     technicalTeamCollection {
-      items { sys { id } name position linkedin pfp { url } }
+      items {
+        sys { id }
+        name
+        position
+        linkedin
+        isTeamLead
+        project { ... on Project { name } }
+        pfp { url }
+      }
     }
     alumniCollection(order: orderNumber_ASC) {
       items { sys { id } fullName position linkedin profile { url } }
@@ -19,14 +27,17 @@ type PersonItem = {
   name: string | null;
   position: string | null;
   linkedin: string | null;
+  isTeamLead: boolean | null;
   pfp: Photo;
 };
 
 export type TeamResponse = {
   adminTeamMemberCollection: {
-    items: (PersonItem & { team: string | null })[];
+    items: (PersonItem & { team: string | null; order: number | null })[];
   };
-  technicalTeamCollection: { items: PersonItem[] };
+  technicalTeamCollection: {
+    items: (PersonItem & { project: { name?: string | null } | null })[];
+  };
   alumniCollection: {
     items: {
       sys: { id: string };
@@ -54,6 +65,9 @@ export type TeamMember = {
   linkedinUrl: string | null;
   photoUrl: string | null;
   categories: Category[];
+  /** Tech project name (technicalTeam only), used by the Tech sub-filter. */
+  project: string | null;
+  isTeamLead: boolean;
 };
 
 const TEAM_TO_CATEGORY: Partial<Record<string, Category>> = {
@@ -85,6 +99,8 @@ export function toTeamMembers(data: TeamResponse): TeamMember[] {
         linkedinUrl: toLinkedinUrl(item.linkedin),
         photoUrl: item.pfp?.url ?? null,
         categories,
+        project: null,
+        isTeamLead: item.isTeamLead === true,
       };
     },
   );
@@ -96,6 +112,8 @@ export function toTeamMembers(data: TeamResponse): TeamMember[] {
     linkedinUrl: toLinkedinUrl(item.linkedin),
     photoUrl: item.pfp?.url ?? null,
     categories: ["Tech"],
+    project: item.project?.name?.trim() || null,
+    isTeamLead: item.isTeamLead === true,
   }));
 
   const alumni = data.alumniCollection.items.map((item): TeamMember => ({
@@ -105,9 +123,44 @@ export function toTeamMembers(data: TeamResponse): TeamMember[] {
     linkedinUrl: toLinkedinUrl(item.linkedin),
     photoUrl: item.profile?.url ?? null,
     categories: ["Alumni"],
+    project: null,
+    isTeamLead: false,
   }));
 
-  return [...admins, ...techs, ...alumni].filter(
+  // Stable sorts keep Contentful's order (admins by `order`, alumni by
+  // `orderNumber`); team leads float to the front of each group.
+  const leadsFirst = (a: TeamMember, b: TeamMember) =>
+    Number(b.isTeamLead) - Number(a.isTeamLead);
+
+  return [...admins, ...techs.toSorted(leadsFirst), ...alumni].filter(
     (member) => member.name !== "",
   );
+}
+
+/** Project names for the Tech sub-filter, in first-seen order. */
+export function techProjects(members: TeamMember[]): string[] {
+  const names = new Set<string>();
+  for (const member of members) {
+    if (member.project) names.add(member.project);
+  }
+  return [...names];
+}
+
+/** Members shown for a tab (and, for Tech, an optional project filter). */
+export function membersFor(
+  members: TeamMember[],
+  category: Category,
+  project: string | null,
+): TeamMember[] {
+  let result = members.filter((m) => m.categories.includes(category));
+  if (category === "Tech") {
+    if (project) {
+      result = result.filter((m) => m.project === project);
+    } else {
+      // Someone can be both an admin and a developer; show them once.
+      const seen = new Set<string>();
+      result = result.filter((m) => !seen.has(m.name) && seen.add(m.name));
+    }
+  }
+  return result.toSorted((a, b) => Number(b.isTeamLead) - Number(a.isTeamLead));
 }
