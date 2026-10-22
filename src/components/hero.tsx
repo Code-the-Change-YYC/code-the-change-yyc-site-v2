@@ -38,20 +38,28 @@ function EnvelopeIcon() {
 // Arbitrary px font sizes below are Figma-exact values; tokens come later.
 export function Hero() {
   return (
-    <section className="relative isolate min-h-[780px] overflow-x-clip px-4 pt-28 pb-16 md:min-h-[1040px] md:pt-36 lg:aspect-[1280/832] lg:min-h-0 lg:pt-32 lg:pb-0 2xl:max-h-[960px]">
-      {/* Figma 602:2161. Anchored to the bottom so the grass always meets the
-          pixel transition below; cropped at the sides on narrow screens. */}
+    // `w-full` matters: with only `aspect-ratio` + `max-height`, CSS transfers
+    // the height cap into a width cap, so on wide screens the section stopped
+    // at ~1477px and left a blank strip. With a definite width the cap just
+    // crops the illustration (object-position keeps the blimp and characters).
+    // `-mt-16` slides the sky under the floating nav pill (64px tall) like the
+    // About/Events headers, so no white band cuts the clouds off; the top
+    // padding and min-heights add the same 64px back.
+    <section className="relative isolate -mt-16 min-h-[844px] w-full overflow-x-clip px-4 pt-44 pb-16 min-[2000px]:max-h-[1400px] md:min-h-[1104px] md:pt-52 lg:aspect-[1280/832] lg:min-h-0 lg:pt-48 lg:pb-0 2xl:max-h-[1080px]">
+      {/* Figma 602:2161. Anchored low so the grass always meets the pixel
+          transition below; cropped at the sides on narrow screens and a
+          little top and bottom once the height cap kicks in on wide ones. */}
       <Image
         src="/brand/home/hero-illustration.jpg"
         alt=""
         fill
         priority
         sizes="100vw"
-        className="-z-10 object-cover object-[52%_100%] md:object-[45%_100%] lg:object-bottom"
+        className="-z-10 object-cover object-[52%_100%] md:object-[45%_100%] lg:object-[50%_60%]"
       />
-      <div className="relative z-10 mx-auto flex max-w-[653px] flex-col items-center gap-8 text-center lg:max-w-[640px]">
+      <div className="relative z-10 mx-auto flex max-w-[653px] flex-col items-center gap-8 text-center min-[2000px]:max-w-[820px] lg:max-w-[640px]">
         <div className="flex flex-col items-center gap-4">
-          <h1 className="font-omnes text-[57px] leading-16 font-bold tracking-[-0.0025em] text-purple-500 md:text-[88px] md:leading-24 lg:text-[64px] lg:leading-[72px] xl:text-[72px] xl:leading-20">
+          <h1 className="font-omnes text-[57px] leading-16 font-bold tracking-[-0.0025em] text-purple-500 min-[2000px]:text-[88px] min-[2000px]:leading-24 md:text-[88px] md:leading-24 lg:text-[64px] lg:leading-[72px] xl:text-[72px] xl:leading-20">
             Coding a better world together.
           </h1>
           <p className="font-omnes text-grey-600 max-w-[497px] text-2xl leading-8 md:text-[32px] md:leading-10">
