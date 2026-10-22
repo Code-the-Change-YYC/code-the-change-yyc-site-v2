@@ -64,6 +64,8 @@ export type TeamMember = {
   role: string;
   linkedinUrl: string | null;
   photoUrl: string | null;
+  /** Photo was uploaded pre-cropped to a circle; set server-side in team.tsx. */
+  photoIsCircle?: boolean;
   categories: Category[];
   /** Tech project name (technicalTeam only), used by the Tech sub-filter. */
   project: string | null;

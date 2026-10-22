@@ -41,7 +41,13 @@ const NAME_PLATE =
   "shadow-elevation-100 flex w-full items-center justify-center gap-2 rounded-lg bg-green-50 p-2";
 
 /** Single member card: the little "browser window" from the Figma design. */
-export function TeamCard({ name, role, linkedinUrl, photoUrl }: TeamMember) {
+export function TeamCard({
+  name,
+  role,
+  linkedinUrl,
+  photoUrl,
+  photoIsCircle = false,
+}: TeamMember) {
   const plate = (
     <>
       <span className="text-label-large min-w-0 font-medium text-green-800">
@@ -61,7 +67,10 @@ export function TeamCard({ name, role, linkedinUrl, photoUrl }: TeamMember) {
           alt=""
           fill
           sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw"
-          className="object-cover"
+          // Circle-cropped uploads (transparent corners) are zoomed past the
+          // corners so every photo fills the card the same way: 1.45 keeps
+          // the box inside the circle even when the card is square.
+          className={`object-cover ${photoIsCircle ? "scale-[1.45]" : ""}`}
         />
       ) : (
         <div
