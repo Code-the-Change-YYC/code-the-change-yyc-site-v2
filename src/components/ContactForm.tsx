@@ -10,6 +10,8 @@ import { useState } from "react";
  * (reserved here as pb-5) for future validation messages.
  */
 
+const CONTACT_EMAIL = "codethechangeyyc@gmail.com";
+
 const FIELD_CLASS =
   "block w-full rounded-xl border border-grey-400 py-3 pr-3 pl-4 text-base/6 placeholder:text-grey-500 focus:border-purple-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/40";
 
@@ -46,14 +48,17 @@ function InputField({
 export default function ContactForm() {
   const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
 
-  // There is no submission backend yet; this only validates and resets.
+  // There is no submission backend, so we hand the message to the visitor's
+  // email app via a mailto: link instead of pretending it was sent.
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
     try {
-      const form = e.currentTarget;
-      new FormData(form);
-      form.reset();
+      const data = new FormData(e.currentTarget);
+      const field = (key: string) => String(data.get(key) ?? "").trim();
+      const subject = field("subject") || "Website enquiry";
+      const body = `Name: ${field("name")}\nEmail: ${field("email")}\n\n${field("message")}`;
+      window.location.href = `mailto:${CONTACT_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
       setStatus("success");
     } catch {
       setStatus("error");
@@ -110,7 +115,7 @@ export default function ContactForm() {
           className="flex w-full cursor-pointer content-center justify-center gap-4 rounded-full bg-purple-500 px-3 py-2 text-xl font-semibold text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-500 md:col-span-2"
           type="submit"
         >
-          Send Your Message
+          Send message
           {/*A crude paper airplane svg, might be better to replace it with an image*/}
           <svg
             className="block fill-none stroke-current stroke-3"
@@ -127,8 +132,31 @@ export default function ContactForm() {
           role="status"
           aria-live="polite"
         >
-          {status === "success" && "Your message has been received!"}
-          {status === "error" && "Something went wrong. Please try again."}
+          {status === "success" && (
+            <>
+              Your email app should open with your message ready to send. If it
+              doesn’t, email us at{" "}
+              <a
+                className="font-semibold underline"
+                href={`mailto:${CONTACT_EMAIL}`}
+              >
+                {CONTACT_EMAIL}
+              </a>
+              .
+            </>
+          )}
+          {status === "error" && (
+            <>
+              Something went wrong. Please email us at{" "}
+              <a
+                className="font-semibold underline"
+                href={`mailto:${CONTACT_EMAIL}`}
+              >
+                {CONTACT_EMAIL}
+              </a>
+              .
+            </>
+          )}
         </p>
       </form>
     </div>

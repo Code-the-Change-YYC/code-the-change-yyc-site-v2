@@ -13,6 +13,8 @@ import {
 
 export const metadata: Metadata = {
   title: "Contribute",
+  description:
+    "Join Code the Change YYC as a student volunteer in development, design, events, or marketing, or partner with us as an organization or sponsor.",
 };
 
 // Figma exports used when a strip is empty or Contentful is unreachable.

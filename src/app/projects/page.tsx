@@ -6,6 +6,8 @@ import { getProjects } from "@/lib/contentful/projects";
 
 export const metadata: Metadata = {
   title: "Projects",
+  description:
+    "Software we have built for Calgary non-profits and community organizations, designed and developed by Code the Change YYC student teams.",
 };
 
 export default async function Page() {

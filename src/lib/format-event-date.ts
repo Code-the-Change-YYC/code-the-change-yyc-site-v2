@@ -1,14 +1,12 @@
 /**
- * Formats an event's start/end into the card label from the design, always in
- * Calgary time (server render timezone is UTC on Vercel):
+ * Formats an event's start/end into the card label from the design, as the wall-clock
+ * time entered in the CMS:
  *
  *   OCT 8 · 5PM - 8PM            same day
  *   SEPT 14-15 · 9AM - 4PM       multi-day, same month
  *   SEPT 30-OCT 2 · 9AM - 4PM    multi-day, spans months
  *   OCT 25 · 5:30PM              no end date
  */
-
-const TIME_ZONE = "America/Edmonton";
 
 // The design uses "SEPT", which no Intl locale produces, so map it by hand.
 const MONTHS = [
@@ -28,24 +26,18 @@ const MONTHS = [
 
 type Parts = { month: number; day: number; hour: number; minute: number };
 
+// Editors type local (Calgary) wall-clock times into Contentful, but it stores
+// them as UTC ("2025-11-08T09:00:00.000Z" for 9AM). Converting to a timezone
+// would shift that to 2AM, so read the components straight from the string
+// and ignore any offset/Z.
 function toParts(iso: string): Parts {
-  const parts = new Intl.DateTimeFormat("en-CA", {
-    timeZone: TIME_ZONE,
-    month: "numeric",
-    day: "numeric",
-    hour: "numeric",
-    minute: "numeric",
-    hourCycle: "h23",
-  }).formatToParts(new Date(iso));
-
-  const get = (type: Intl.DateTimeFormatPartTypes) =>
-    Number(parts.find((p) => p.type === type)?.value ?? 0);
-
+  const m = /^(\d{4})-(\d{2})-(\d{2})[T ](\d{2}):(\d{2})/.exec(iso);
+  if (!m) return { month: 0, day: 1, hour: 0, minute: 0 };
   return {
-    month: get("month") - 1,
-    day: get("day"),
-    hour: get("hour"),
-    minute: get("minute"),
+    month: Number(m[2]) - 1,
+    day: Number(m[3]),
+    hour: Number(m[4]),
+    minute: Number(m[5]),
   };
 }
 

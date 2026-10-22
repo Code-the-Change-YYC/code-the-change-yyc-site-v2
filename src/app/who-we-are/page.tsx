@@ -6,6 +6,8 @@ import { Team } from "./team";
 
 export const metadata: Metadata = {
   title: "About",
+  description:
+    "Meet Code the Change YYC: a student-led Calgary club building software for non-profits, our history, our team, and our hackathons.",
 };
 
 export default function Page() {
