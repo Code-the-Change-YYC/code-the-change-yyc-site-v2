@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { useId, useState } from "react";
 
+import { NAV_LINKS } from "@/lib/links";
+
 /**
  * Site header / primary nav.
  *
@@ -17,14 +19,6 @@ import { useId, useState } from "react";
  * docs/design-system.md "Signature moves" for that exception, called out
  * explicitly so it doesn't get "fixed" later to match the sticker cards).
  */
-
-const NAV_LINKS = [
-  { label: "About", href: "/who-we-are" },
-  { label: "Events", href: "/events" },
-  { label: "Projects", href: "/projects" },
-  { label: "Contribute", href: "/join" },
-  { label: "Contact", href: "/contact" },
-] as const;
 
 // elevation/300 (Figma variable): three stacked soft drop-shadows.
 const ELEVATION_300 =

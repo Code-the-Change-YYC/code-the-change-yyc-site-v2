@@ -36,6 +36,7 @@ existed.
 | `green/50`   | —         | `#F1FEF8` | faint accent tint                                     |
 | `grey/800`   | `ink`     | `#292929` | body text, borders, dark buttons                      |
 | `grey/600`   | `inkSoft` | `#575757` | secondary text                                        |
+| `grey/500`   | —         | `#767676` | input placeholder text                                |
 | `grey/400`   | —         | `#A5A5A5` | muted text/disabled                                   |
 | `grey/50`    | —         | `#FCFCFC` | page background                                       |
 | `grey/00`    | —         | `#FFFFFF` | pure white surfaces (use Tailwind's built-in `white`) |
