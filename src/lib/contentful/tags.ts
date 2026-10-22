@@ -9,6 +9,7 @@
  * Content type IDs carried over from the existing space (963e09izo0py).
  */
 export const CONTENT_TYPES = [
+  "event",
   "upcomingEvents",
   "pastEvents",
   "role",

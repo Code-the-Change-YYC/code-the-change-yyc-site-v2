@@ -1,22 +1,25 @@
 import type { Metadata } from "next";
 import { draftMode } from "next/headers";
-
+import { EventsHeader } from "@/components/events-header";
 import UpcomingEvents from "@/components/upcoming-events";
-import { getUpcomingEvents } from "@/lib/contentful/queries/upcoming-events";
+import { getEvents } from "@/lib/contentful/events";
 
 export const metadata: Metadata = {
   title: "Events",
 };
 
-// TODO(design): build the rest of this page from the Direction 05 mockup.
+// "Upcoming" is decided against Date.now() at render time, so re-render at
+// least hourly (webhook revalidation of the "event" tag also refreshes it).
+export const revalidate = 3600;
+
 export default async function Page() {
   const { isEnabled: preview } = await draftMode();
-  const upcomingEvents = await getUpcomingEvents({ preview });
+  const events = await getEvents({ preview });
 
   return (
     <main>
-      <h1 className="sr-only">Events</h1>
-      <UpcomingEvents events={upcomingEvents} />
+      <EventsHeader />
+      <UpcomingEvents events={events ? events.upcoming : null} />
     </main>
   );
 }

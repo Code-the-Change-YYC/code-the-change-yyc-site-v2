@@ -17,9 +17,10 @@
  * pure white, so it reuses Tailwind's built-in `white` instead of a token.
  */
 @theme {
+  --color-purple-800: #2911a7;
   --color-purple-500: #7054fd;
   --color-purple-400: #a688ff;
-  --color-purple-800: #2911a7;
+  --color-purple-200: #d5cdfe;
   --color-red-800: #a70a38;
   --color-red-500: #fe4d6e;
   --color-red-200: #ffd2dc;
@@ -49,6 +50,7 @@
   --shadow-elevation-300:
     0 0 0.5px rgb(0 0 0 / 0.15), 0 1px 3px rgb(0 0 0 / 0.1),
     0 5px 12px rgb(0 0 0 / 0.13);
+
   /* Figma type style display/large/emphasized: 57/64, tracking -0.1425px. */
   --text-display-large: 3.5625rem;
   --text-display-large--line-height: 4rem;
