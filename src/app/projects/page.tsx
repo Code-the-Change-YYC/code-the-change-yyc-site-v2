@@ -28,9 +28,9 @@ export default function Page() {
         />
       </div>
 
-      <section aria-label="Our impact" className="w-full">
+      <div className="w-full">
         <ImpactStats />
-      </section>
+      </div>
     </main>
   );
 }

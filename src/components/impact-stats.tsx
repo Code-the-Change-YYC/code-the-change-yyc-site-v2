@@ -30,6 +30,7 @@ type Doodle = { src: string; outer: string; inner?: string };
 const UNDERLINE_A_INNER = "inset-[-59.06%_-2.27%_-59.07%_-2.27%]";
 const UNDERLINE_B_INNER = "inset-[-113.19%_-4.68%_-113.22%_-4.68%]";
 
+// Inset percentages are derived from Figma frame 493:6664 (1440x949).
 const DESKTOP_DOODLES: Doodle[] = [
   {
     src: `${DOODLE_BASE}/underline-14-a.svg`,
@@ -83,6 +84,7 @@ const DESKTOP_DOODLES: Doodle[] = [
   },
 ];
 
+// Inset percentages are derived from Figma frame 493:6690 (428x1530).
 const MOBILE_DOODLES: Doodle[] = [
   {
     src: `${DOODLE_BASE_MOBILE}/underline-14-a.svg`,
@@ -162,9 +164,25 @@ const STAT =
 const LABEL =
   "absolute font-omnes font-semibold leading-[1.25] whitespace-nowrap text-black";
 
+const PHOTO_SIZES = "(min-width: 1440px) 250px, 20vw";
+
+// Each stat reads as one sentence to assistive tech; the scattered visual
+// pieces are hidden from it.
+function Stat({ sr, children }: { sr: string; children: React.ReactNode }) {
+  return (
+    <li>
+      <span className="sr-only">{sr}</span>
+      <div aria-hidden="true">{children}</div>
+    </li>
+  );
+}
+
 function DesktopImpact() {
   return (
-    <div className="@container relative mx-auto hidden aspect-[1440/949] w-full max-w-[1440px] overflow-hidden md:block">
+    <section
+      aria-labelledby="impact-heading-desktop"
+      className="@container relative mx-auto hidden aspect-[1440/949] w-full max-w-[1440px] overflow-hidden md:block"
+    >
       <DoodleLayer doodles={DESKTOP_DOODLES} />
 
       <div className="absolute inset-[15.81%_17.19%_58.06%_66.04%]">
@@ -174,6 +192,7 @@ function DesktopImpact() {
             alt="Code the Change YYC members posing together for a group photo"
             width={488}
             height={500}
+            sizes={PHOTO_SIZES}
             className="block size-full max-w-none"
           />
         </div>
@@ -185,17 +204,21 @@ function DesktopImpact() {
             alt="Two Code the Change YYC members smiling and making peace signs"
             width={500}
             height={500}
+            sizes={PHOTO_SIZES}
             className="block size-full max-w-none"
           />
         </div>
       </div>
 
-      <p className={`${LABEL} top-[4.32%] left-[5%] text-[2.5cqw]`}>
+      <h2
+        id="impact-heading-desktop"
+        className={`${LABEL} top-[4.32%] left-[5%] m-0 text-[2.5cqw]`}
+      >
         Over the course of our efforts, we have...
-      </p>
+      </h2>
 
       <ul className="m-0 list-none p-0">
-        <li>
+        <Stat sr="Worked on 14 non-profit projects">
           <p className={`${LABEL} top-[18.1%] left-[4.97%] text-[2.5cqw]`}>
             worked on
           </p>
@@ -207,8 +230,8 @@ function DesktopImpact() {
           <p className={`${LABEL} top-[33.6%] left-[20.22%] text-[2.5cqw]`}>
             non-profit projects
           </p>
-        </li>
-        <li>
+        </Stat>
+        <Stat sr="Donated $30k+ to charities">
           <p className={`${LABEL} top-[49.1%] left-[25.69%] text-[2.5cqw]`}>
             donated
           </p>
@@ -220,8 +243,8 @@ function DesktopImpact() {
           <p className={`${LABEL} top-[63.9%] left-[54.37%] text-[2.5cqw]`}>
             to charities
           </p>
-        </li>
-        <li>
+        </Stat>
+        <Stat sr="Contributed 3k+ hours in volunteering">
           <p className={`${LABEL} top-[78.4%] left-[48.13%] text-[2.5cqw]`}>
             &amp; contributed
           </p>
@@ -233,23 +256,29 @@ function DesktopImpact() {
           <p className={`${LABEL} top-[93.1%] left-[78.45%] text-[2.5cqw]`}>
             in volunteering
           </p>
-        </li>
+        </Stat>
       </ul>
-    </div>
+    </section>
   );
 }
 
 function MobileImpact() {
   return (
-    <div className="@container relative mx-auto aspect-[428/1530] w-full max-w-[428px] overflow-hidden md:hidden">
+    <section
+      aria-labelledby="impact-heading-mobile"
+      className="@container relative mx-auto aspect-[428/1530] w-full max-w-[428px] overflow-hidden md:hidden"
+    >
       <DoodleLayer doodles={MOBILE_DOODLES} />
 
-      <p className="font-omnes absolute top-[0.1%] left-1/2 w-[60%] -translate-x-1/2 text-center text-[4.67cqw] leading-[1.25] font-semibold text-purple-500">
+      <h2
+        id="impact-heading-mobile"
+        className="font-omnes absolute top-[0.1%] left-1/2 m-0 w-[60%] -translate-x-1/2 text-center text-[4.67cqw] leading-[1.25] font-semibold text-purple-500"
+      >
         Over the course of our efforts, we have...
-      </p>
+      </h2>
 
       <ul className="m-0 list-none p-0">
-        <li>
+        <Stat sr="Worked on 14 non-profit projects">
           <p className={`${LABEL} top-[5.2%] left-[30.34%] text-[8.41cqw]`}>
             worked on
           </p>
@@ -263,8 +292,8 @@ function MobileImpact() {
             <br />
             projects
           </p>
-        </li>
-        <li>
+        </Stat>
+        <Stat sr="Donated $30k+ to charities">
           <p className={`${LABEL} top-[38.1%] left-[33.73%] text-[8.41cqw]`}>
             donated
           </p>
@@ -276,8 +305,8 @@ function MobileImpact() {
           <p className={`${LABEL} top-[54.3%] left-[17.01%] text-[8.41cqw]`}>
             to charities
           </p>
-        </li>
-        <li>
+        </Stat>
+        <Stat sr="Contributed 3k+ hours in volunteering">
           <p className={`${LABEL} top-[69.5%] left-[23.36%] text-[8.41cqw]`}>
             &amp; contributed
           </p>
@@ -292,9 +321,9 @@ function MobileImpact() {
           <p className={`${LABEL} top-[92.8%] left-[12.48%] text-[8.41cqw]`}>
             in volunteering
           </p>
-        </li>
+        </Stat>
       </ul>
-    </div>
+    </section>
   );
 }
 
