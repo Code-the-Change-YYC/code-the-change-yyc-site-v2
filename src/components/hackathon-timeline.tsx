@@ -48,29 +48,33 @@ export function HackathonTimeline({ entries }: { entries: HackathonEntry[] }) {
  */
 function TimelineCard({ entry }: { entry: HackathonEntry }) {
   return (
-    <div className="relative aspect-[420/418] w-full max-w-[420px]">
-      <div className="absolute top-[27%] left-[19%] h-[67%] w-[62%] overflow-hidden rounded-2xl bg-green-100">
-        {entry.image ? (
-          <Image
-            src={entry.image.url}
-            alt={entry.image.alt}
-            fill
-            sizes="(min-width: 1024px) 260px, 62vw"
-            className="object-cover"
-          />
-        ) : null}
-      </div>
-      <div className="absolute top-[52%] left-[19%] h-[44%] w-[62%] rounded-2xl bg-green-50">
-        <div className="absolute right-4 bottom-4 left-6 flex flex-col">
-          <h3 className="font-omnes text-grey-800 text-headline-small">
-            {entry.year}
-          </h3>
-          {entry.topic ? (
-            <p className="font-omnes text-grey-600 text-body-medium">
-              {entry.topic}
-            </p>
+    <div className="w-full max-w-80 overflow-hidden lg:max-w-[420px] lg:overflow-visible">
+      {/* Below lg the 420x418 art box is widened so the visible panel (62% of
+          it) fills the column, and its empty margins are pulled back in. */}
+      <div className="relative -mt-[43.3%] -mb-[6.4%] -ml-[30.6%] aspect-[420/418] w-[161.3%] lg:m-0 lg:w-full">
+        <div className="absolute top-[27%] left-[19%] h-[67%] w-[62%] overflow-hidden rounded-2xl bg-green-100">
+          {entry.image ? (
+            <Image
+              src={entry.image.url}
+              alt={entry.image.alt}
+              fill
+              sizes="(min-width: 1024px) 260px, 320px"
+              className="object-cover"
+            />
           ) : null}
-          {entry.blurb ? <p className="sr-only">{entry.blurb}</p> : null}
+        </div>
+        <div className="absolute top-[52%] left-[19%] h-[44%] w-[62%] rounded-2xl bg-green-50">
+          <div className="absolute right-4 bottom-4 left-6 flex flex-col">
+            <h3 className="font-omnes text-grey-800 text-headline-small">
+              {entry.year}
+            </h3>
+            {entry.topic ? (
+              <p className="font-omnes text-grey-600 text-body-medium">
+                {entry.topic}
+              </p>
+            ) : null}
+            {entry.blurb ? <p className="sr-only">{entry.blurb}</p> : null}
+          </div>
         </div>
       </div>
     </div>
