@@ -62,7 +62,7 @@ export default function ContactForm() {
 
   return (
     <div className="font-omnes text-grey-800 min-w-0 lg:w-159.5 lg:max-w-159.5 lg:flex-1">
-      <p className="text-2xl/8">
+      <p className="text-xl/7 sm:text-2xl/8">
         Wanna connect with us about a project, partnership, or anything else?
         Shoot us an email at{" "}
         <a className="font-semibold" href="mailto:codethechangeyyc@gmail.com">
