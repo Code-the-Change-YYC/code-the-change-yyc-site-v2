@@ -22,6 +22,8 @@ These are the ones where a plausible-looking change silently breaks something, o
 
 The Next 13/14 default flipped in Next 15. An un-annotated `fetch` hits the network on every request. Every Contentful call must go through `contentfulFetch` in `src/lib/contentful/fetch.ts`, which sets `cache: "force-cache"` explicitly. Do not add bare `fetch` calls to Contentful.
 
+Page sections should use `contentfulFetchOrNull` and render an empty state for `null`, so a Contentful outage or missing credentials (fork PRs, a fresh clone) never fails the build. CI gets the read-only `CONTENTFUL_SPACE_ID` / `CONTENTFUL_ACCESS_TOKEN` as repo secrets.
+
 ### `revalidateTag` takes two arguments
 
 ```ts
