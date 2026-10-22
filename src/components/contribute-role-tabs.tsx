@@ -57,7 +57,7 @@ export function ContributeRoleTabs({ roles }: { roles: ContributeRole[] }) {
               className={`font-omnes text-title-medium rounded-t-xl px-4 py-2 font-medium whitespace-nowrap focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-500 ${
                 selected
                   ? "bg-orange-50 text-orange-900"
-                  : "bg-orange-100 text-orange-600 hover:bg-orange-50"
+                  : "bg-orange-100 text-orange-900 hover:bg-orange-50"
               }`}
             >
               {role.label}
@@ -88,7 +88,7 @@ export function ContributeRoleTabs({ roles }: { roles: ContributeRole[] }) {
           )}
         </div>
         <div className="flex min-w-0 flex-1 flex-col items-start gap-4">
-          <h3 className="font-omnes text-headline-small font-semibold text-orange-600">
+          <h3 className="font-omnes text-headline-small font-semibold text-orange-900">
             {active.label}
           </h3>
           <p className="font-omnes text-body-large text-grey-800">

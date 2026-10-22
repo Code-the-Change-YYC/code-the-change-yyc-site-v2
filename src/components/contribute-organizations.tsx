@@ -8,7 +8,7 @@ export function ContributeOrganizations() {
     <section
       id="organizations"
       aria-labelledby="organizations-heading"
-      className="scroll-mt-8"
+      className="scroll-mt-28"
     >
       <PixelDivider color="var(--color-orange-200)" flip />
       <div className="flex flex-col items-center gap-6 bg-orange-200 px-4 py-12 md:px-12">

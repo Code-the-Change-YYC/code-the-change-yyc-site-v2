@@ -1,4 +1,5 @@
 import { ContributeRoleTabs } from "@/components/contribute-role-tabs";
+import { Button } from "@/components/ui/button";
 import { SectionHeading } from "@/components/ui/section-heading";
 import type { ContributeRole } from "@/lib/contentful/contribute";
 
@@ -35,9 +36,9 @@ export function ContributeStudents({
       ) : (
         <p className="font-omnes text-body-large text-grey-600 rounded-[20px] bg-orange-50 px-6 py-8 text-center">
           Role details are unavailable right now. Please check back soon, or{" "}
-          <a href="/contact" className="text-purple-800 underline">
+          <Button href="/contact" variant="text" size="sm">
             get in touch
-          </a>{" "}
+          </Button>{" "}
           to ask about joining.
         </p>
       )}
