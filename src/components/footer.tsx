@@ -1,31 +1,74 @@
 import Link from "next/link";
 
-import { CONTACT_LINKS, NAV_LINKS, SOCIAL_LINKS } from "@/lib/social";
+import {
+  CONTACT_LINKS,
+  NAV_LINKS,
+  SOCIAL_LINKS,
+  type SiteLink,
+} from "@/lib/links";
 
-type FooterLink = { label: string; href: string };
+/**
+ * Site footer.
+ *
+ * Sourced from Figma file "CTC website Redesign 2026"
+ * (fileKey C7O1lsl8HhZw9q7RxHHcWZ):
+ *  - node 460:4471 (1280x450) — desktop.
+ *  - node 603:3372 (400x808) — small / mobile.
+ *  - in context: node 602:2163 inside home 539:4043.
+ *
+ * The panel is full-bleed (no outer margin) and flush with the bottom edge:
+ * only the top corners are rounded (radius/7 = 32px = rounded-4xl).
+ * Spacing maps to the default Tailwind scale (Figma spacing/8 = 32px = 8,
+ * spacing/6 = 24px = 6, spacing/4 = 16px = 4).
+ */
 
-function FooterColumn({
+const TITLE_CLASS = "font-omnes text-base/6 font-semibold text-white";
+const LINK_CLASS =
+  "font-omnes text-base/6 font-normal text-white transition-opacity hover:opacity-80";
+
+function isExternal(href: string) {
+  return href.startsWith("http");
+}
+
+function FooterLink({ link }: { link: SiteLink }) {
+  if (isExternal(link.href)) {
+    return (
+      <a
+        href={link.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={LINK_CLASS}
+      >
+        {link.label}
+      </a>
+    );
+  }
+  // mailto: and internal routes open in the same tab.
+  return link.href.startsWith("mailto:") ? (
+    <a href={link.href} className={LINK_CLASS}>
+      {link.label}
+    </a>
+  ) : (
+    <Link href={link.href} className={LINK_CLASS}>
+      {link.label}
+    </Link>
+  );
+}
+
+function FooterGroup({
   title,
   links,
 }: {
   title: string;
-  links: readonly FooterLink[];
+  links: readonly SiteLink[];
 }) {
   return (
-    <div>
-      <p className="font-omnes text-sm font-bold text-white">{title}</p>
-      <ul className="mt-3 flex flex-col gap-2">
+    <div className="flex flex-col items-start gap-6">
+      <h2 className={TITLE_CLASS}>{title}</h2>
+      <ul className="flex flex-col items-start gap-4">
         {links.map((link) => (
-          <li key={link.label}>
-            <Link
-              href={link.href}
-              {...(link.href.startsWith("http")
-                ? { target: "_blank", rel: "noopener noreferrer" }
-                : {})}
-              className="font-omnes text-sm font-medium text-white transition-colors hover:text-white/80"
-            >
-              {link.label}
-            </Link>
+          <li key={link.href}>
+            <FooterLink link={link} />
           </li>
         ))}
       </ul>
@@ -37,33 +80,36 @@ export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="mt-auto">
-      <div className="mx-auto max-w-7xl rounded-3xl bg-purple-500 px-6 py-10 md:px-12 md:py-12">
-        <div className="flex flex-col gap-10 md:flex-row md:items-start md:justify-between">
-          {/* Logo */}
-          <div className="flex items-center gap-3">
-            {/*
-              eslint-disable-next-line @next/next/no-img-element -- static brand
-              SVG; same rationale as src/components/header.tsx Logo.
-            */}
-            <img
-              src="/brand/FullLogo_FullWhite 1.svg"
-              alt="Code the Change YYC"
-              className="h-22 w-auto md:h-45"
-            />
-          </div>
+    <footer className="mt-auto rounded-t-4xl bg-purple-500 px-12 pt-6 pb-8 md:pt-24">
+      <div className="mx-auto flex max-w-7xl flex-col gap-8">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-[1fr_2fr] md:gap-16">
+          {/* Logo (Figma frame is 398:228; PNG is cropped to that ratio). */}
+          {/*
+            eslint-disable-next-line @next/next/no-img-element -- static brand
+            asset served from /public; same rationale as src/components/header.tsx.
+            Figma stores this logo as a raster fill, so it is a PNG, not an SVG.
+          */}
+          <img
+            src="/brand/logo-full-white.png"
+            alt="Code the Change YYC"
+            width={903}
+            height={517}
+            className="h-auto w-full self-start"
+          />
 
-          {/* Three columns */}
-          <div className="flex flex-col gap-8 md:flex-row md:gap-16">
-            <FooterColumn title="Navigation" links={NAV_LINKS} />
-            <FooterColumn title="Contact us" links={CONTACT_LINKS} />
-            <FooterColumn title="Socials" links={SOCIAL_LINKS} />
-          </div>
+          <nav
+            aria-label="Footer"
+            className="grid grid-cols-1 gap-6 self-start md:grid-cols-3 md:gap-x-12"
+          >
+            <FooterGroup title="Navigation" links={NAV_LINKS} />
+            <FooterGroup title="Contact us" links={CONTACT_LINKS} />
+            <FooterGroup title="Socials" links={SOCIAL_LINKS} />
+          </nav>
         </div>
 
-        <hr className="my-8 border-0 border-t border-white/20 md:my-10" />
+        <hr className="h-0.5 border-0 bg-purple-400" />
 
-        <p className="font-omnes text-sm font-medium text-white/80">
+        <p className="font-omnes text-base/6 font-normal text-white">
           © {year} Code the Change YYC
         </p>
       </div>
