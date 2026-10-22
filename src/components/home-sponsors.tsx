@@ -3,37 +3,116 @@ import Image from "next/image";
 import { SectionHeading } from "@/components/ui/section-heading";
 
 /**
- * WB-45 "Our sponsors". Figma sponsors 539:4241 (desktop), 603:2822 (tablet).
- * White logo cards with a soft shadow, 3 per row from tablet up (the lone fourth card sits
- * left-aligned on row two, as in Figma), a single column on mobile.
+ * WB-45 "Our sponsors". Figma sponsors 539:4241 (desktop), 603:2822 (tablet):
+ * white logo cards with a soft shadow.
+ *
+ * The sponsor list itself comes from the current lineup (old site PR #165,
+ * "Fix sponsor labels"), not the Figma mock, which only shows four logos.
+ * Gold sponsors get the full-size Figma card in a row of three; silver ones a
+ * slightly smaller card in a row of four. Every card links to the sponsor.
+ * Still hardcoded, like the old site's data/sponsors.js — move to Contentful
+ * if the lineup starts changing more than once a year.
  */
 
-const SPONSORS = [
+type Sponsor = {
+  name: string;
+  href: string;
+  src: string;
+  width: number;
+  height: number;
+};
+
+const GOLD: readonly Sponsor[] = [
+  {
+    name: "Clio",
+    href: "https://www.clio.com",
+    src: "/brand/home/sponsor-clio.png",
+    width: 640,
+    height: 202,
+  },
   {
     name: "Benevity",
+    href: "https://benevity.com",
     src: "/brand/home/sponsor-benevity.png",
     width: 640,
     height: 175,
   },
   {
+    name: "AWS",
+    href: "https://aws.amazon.com",
+    src: "/brand/home/sponsor-aws.png",
+    width: 195,
+    height: 195,
+  },
+];
+
+const SILVER: readonly Sponsor[] = [
+  {
     name: "Schulich School of Engineering, University of Calgary",
+    href: "https://schulich.ucalgary.ca",
     src: "/brand/home/sponsor-schulich.png",
     width: 640,
     height: 325,
   },
   {
     name: "University of Calgary Faculty of Science",
+    href: "https://science.ucalgary.ca",
     src: "/brand/home/sponsor-uofc-science.png",
     width: 640,
     height: 199,
   },
   {
-    name: "Clio",
-    src: "/brand/home/sponsor-clio.png",
-    width: 640,
-    height: 202,
+    name: "Village Ice Cream",
+    href: "https://www.villageicecream.com",
+    src: "/brand/home/sponsor-village-ice-cream.png",
+    width: 1124,
+    height: 1124,
   },
-] as const;
+  {
+    name: "Pason",
+    href: "https://www.pason.com",
+    src: "/brand/home/sponsor-pason.png",
+    width: 738,
+    height: 387,
+  },
+];
+
+const CARD =
+  "shadow-elevation-100 hover:shadow-elevation-300 flex items-center justify-center rounded-2xl bg-white transition-shadow focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-purple-500 motion-reduce:transition-none";
+
+function SponsorCard({
+  sponsor,
+  tier,
+}: {
+  sponsor: Sponsor;
+  tier: "gold" | "silver";
+}) {
+  const gold = tier === "gold";
+  return (
+    <li>
+      <a
+        href={sponsor.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        className={`${CARD} ${gold ? "h-[186px] px-7" : "h-[140px] px-5"}`}
+      >
+        <Image
+          src={sponsor.src}
+          alt={sponsor.name}
+          width={sponsor.width}
+          height={sponsor.height}
+          sizes={
+            gold
+              ? "(min-width: 1024px) 264px, (min-width: 768px) 180px, 280px"
+              : "(min-width: 1024px) 190px, 150px"
+          }
+          className={`h-auto w-full object-contain ${gold ? "max-h-[120px]" : "max-h-[88px]"}`}
+        />
+        <span className="sr-only"> (opens in a new tab)</span>
+      </a>
+    </li>
+  );
+}
 
 export function HomeSponsors() {
   return (
@@ -51,23 +130,24 @@ export function HomeSponsors() {
           Our sponsors
         </SectionHeading>
 
-        <ul className="grid w-full grid-cols-1 gap-8 md:grid-cols-3">
-          {SPONSORS.map((s) => (
-            <li
-              key={s.name}
-              className="shadow-elevation-100 flex h-[186px] items-center justify-center rounded-2xl bg-white px-7"
-            >
-              <Image
-                src={s.src}
-                alt={s.name}
-                width={s.width}
-                height={s.height}
-                sizes="(min-width: 1024px) 264px, (min-width: 768px) 180px, 280px"
-                className="h-auto max-h-[120px] w-full object-contain"
-              />
-            </li>
-          ))}
-        </ul>
+        <div className="flex w-full flex-col gap-8">
+          <ul
+            aria-label="Gold sponsors"
+            className="grid grid-cols-1 gap-8 md:grid-cols-3"
+          >
+            {GOLD.map((s) => (
+              <SponsorCard key={s.name} sponsor={s} tier="gold" />
+            ))}
+          </ul>
+          <ul
+            aria-label="Silver sponsors"
+            className="grid grid-cols-2 gap-6 md:gap-8 lg:grid-cols-4"
+          >
+            {SILVER.map((s) => (
+              <SponsorCard key={s.name} sponsor={s} tier="silver" />
+            ))}
+          </ul>
+        </div>
       </div>
     </section>
   );
