@@ -76,8 +76,10 @@ function toAbsoluteUrl(url: string): string {
 
 type Item = NonNullable<EventsQueryResult["eventCollection"]["items"][number]>;
 
-function toCardData(item: Item): EventCardData {
-  const href = item.signupLink?.trim() || null;
+// Past events keep their card but drop the "Sign up" CTA — signing up for
+// an event that's already happened is a dead end.
+function toCardData(item: Item, isPast: boolean): EventCardData {
+  const href = isPast ? null : item.signupLink?.trim() || null;
   return {
     id: item.sys.id,
     title: item.name ?? "",
@@ -128,7 +130,8 @@ export async function getEvents({
     if (!item?.name || !item.date) continue;
     const at = new Date(item.date).getTime();
     if (Number.isNaN(at)) continue;
-    (at >= now ? upcoming : past).push({ at, card: toCardData(item) });
+    const isPast = at < now;
+    (isPast ? past : upcoming).push({ at, card: toCardData(item, isPast) });
   }
 
   upcoming.sort((a, b) => a.at - b.at);
