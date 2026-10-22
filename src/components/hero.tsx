@@ -35,9 +35,10 @@ function EnvelopeIcon() {
  * art; text uses tablet sizes from md up and, from lg, a smaller 640px column
  * centred in the sky between the blimp and the clouds.
  */
+// Arbitrary px font sizes below are Figma-exact values; tokens come later.
 export function Hero() {
   return (
-    <section className="relative isolate min-h-[780px] overflow-x-clip px-4 pt-28 pb-16 md:min-h-[1040px] md:pt-36 lg:aspect-[1280/832] lg:min-h-0 lg:pt-32 lg:pb-0">
+    <section className="relative isolate min-h-[780px] overflow-x-clip px-4 pt-28 pb-16 md:min-h-[1040px] md:pt-36 lg:aspect-[1280/832] lg:min-h-0 lg:pt-32 lg:pb-0 2xl:max-h-[960px]">
       {/* Figma 602:2161. Anchored to the bottom so the grass always meets the
           pixel transition below; cropped at the sides on narrow screens. */}
       <Image
@@ -46,7 +47,7 @@ export function Hero() {
         fill
         priority
         sizes="100vw"
-        className="-z-10 object-cover object-bottom"
+        className="-z-10 object-cover object-[52%_100%] md:object-[45%_100%] lg:object-bottom"
       />
       <div className="relative z-10 mx-auto flex max-w-[653px] flex-col items-center gap-8 text-center lg:max-w-[640px]">
         <div className="flex flex-col items-center gap-4">

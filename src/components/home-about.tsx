@@ -34,7 +34,7 @@ export function HomeAbout() {
         </p>
 
         {/* Scattered photos: Figma rotations -8.69deg / 4.3deg / 7.61deg. */}
-        <div className="relative h-[190px] w-[361px] shrink-0 md:h-[240px] md:w-[460px] lg:h-[281px] lg:w-[469px]">
+        <div className="relative aspect-[361/190] w-full max-w-[361px] shrink-0 md:max-w-[460px] lg:max-w-[469px]">
           <div className={`${PHOTO_FRAME} top-0 left-0 -rotate-[8.69deg]`}>
             <Image
               src="/brand/home/about-volunteers.jpg"
@@ -58,7 +58,7 @@ export function HomeAbout() {
           <div className={`${PHOTO_FRAME} top-[4%] right-0 rotate-[7.61deg]`}>
             <Image
               src="/brand/home/about-light.jpg"
-              alt="Warm morning sunlight casting leaf shadows on a wall"
+              alt=""
               fill
               sizes={PHOTO_SIZES}
               className="object-cover"
