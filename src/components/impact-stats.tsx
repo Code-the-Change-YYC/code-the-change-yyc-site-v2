@@ -135,7 +135,10 @@ const MOBILE_DOODLES: Doodle[] = [
 
 function DoodleLayer({ doodles }: { doodles: Doodle[] }) {
   return (
-    <div aria-hidden="true">
+    <div
+      aria-hidden="true"
+      className="pointer-events-none absolute inset-0 min-[1440px]:mask-[linear-gradient(to_right,transparent,#000_4%,#000_96%,transparent)]"
+    >
       {doodles.map(({ src, outer, inner }) => (
         <div key={src} className={`absolute ${outer}`}>
           <div className={inner ? `absolute ${inner}` : "absolute inset-0"}>
@@ -161,8 +164,11 @@ function DoodleLayer({ doodles }: { doodles: Doodle[] }) {
 // Shared type treatments (Figma: Omnes Bold stat numbers, SemiBold labels).
 const STAT =
   "absolute font-omnes font-bold whitespace-nowrap text-purple-500 text-center -translate-x-1/2";
-const LABEL =
-  "absolute font-omnes font-semibold leading-[1.25] whitespace-nowrap text-black";
+const LABEL = "absolute font-omnes leading-[1.25] whitespace-nowrap text-black";
+// Desktop/tablet labels are lighter in Figma; only Medium(500) and Bold(700)
+// are loaded, so Medium keeps them narrow enough not to touch the numbers.
+const LABEL_DESKTOP = `${LABEL} font-medium`;
+const LABEL_MOBILE = `${LABEL} font-semibold`;
 
 const PHOTO_SIZES = "(min-width: 1440px) 250px, 20vw";
 
@@ -212,14 +218,16 @@ function DesktopImpact() {
 
       <h2
         id="impact-heading-desktop"
-        className={`${LABEL} top-[4.32%] left-[5%] m-0 text-[2.5cqw]`}
+        className={`${LABEL_MOBILE} top-[4.32%] left-[5%] m-0 text-[2.5cqw]`}
       >
         Over the course of our efforts, we have...
       </h2>
 
       <ul className="m-0 list-none p-0">
         <Stat sr="Worked on 14 non-profit projects">
-          <p className={`${LABEL} top-[18.1%] left-[4.97%] text-[2.5cqw]`}>
+          <p
+            className={`${LABEL_DESKTOP} top-[18.1%] left-[4.97%] text-[2.5cqw]`}
+          >
             worked on
           </p>
           <p
@@ -227,12 +235,16 @@ function DesktopImpact() {
           >
             14
           </p>
-          <p className={`${LABEL} top-[33.6%] left-[20.22%] text-[2.5cqw]`}>
+          <p
+            className={`${LABEL_DESKTOP} top-[33.6%] left-[20.22%] text-[2.5cqw]`}
+          >
             non-profit projects
           </p>
         </Stat>
         <Stat sr="Donated $30k+ to charities">
-          <p className={`${LABEL} top-[49.1%] left-[25.69%] text-[2.5cqw]`}>
+          <p
+            className={`${LABEL_DESKTOP} top-[49.1%] left-[25.69%] text-[2.5cqw]`}
+          >
             donated
           </p>
           <p
@@ -240,12 +252,16 @@ function DesktopImpact() {
           >
             $30k+
           </p>
-          <p className={`${LABEL} top-[63.9%] left-[54.37%] text-[2.5cqw]`}>
+          <p
+            className={`${LABEL_DESKTOP} top-[63.9%] left-[54.37%] text-[2.5cqw]`}
+          >
             to charities
           </p>
         </Stat>
         <Stat sr="Contributed 3k+ hours in volunteering">
-          <p className={`${LABEL} top-[78.4%] left-[48.13%] text-[2.5cqw]`}>
+          <p
+            className={`${LABEL_DESKTOP} top-[78.4%] left-[48.13%] text-[2.5cqw]`}
+          >
             &amp; contributed
           </p>
           <p
@@ -253,7 +269,9 @@ function DesktopImpact() {
           >
             3k+ hrs
           </p>
-          <p className={`${LABEL} top-[93.1%] left-[78.45%] text-[2.5cqw]`}>
+          <p
+            className={`${LABEL_DESKTOP} top-[93.1%] left-[78.45%] text-[2.5cqw]`}
+          >
             in volunteering
           </p>
         </Stat>
@@ -279,7 +297,9 @@ function MobileImpact() {
 
       <ul className="m-0 list-none p-0">
         <Stat sr="Worked on 14 non-profit projects">
-          <p className={`${LABEL} top-[5.2%] left-[30.34%] text-[8.41cqw]`}>
+          <p
+            className={`${LABEL_MOBILE} top-[5.2%] left-[30.34%] text-[8.41cqw]`}
+          >
             worked on
           </p>
           <p
@@ -287,14 +307,18 @@ function MobileImpact() {
           >
             14
           </p>
-          <p className={`${LABEL} top-[20.8%] left-[20.51%] text-[8.41cqw]`}>
+          <p
+            className={`${LABEL_MOBILE} top-[20.8%] left-[20.51%] text-[8.41cqw]`}
+          >
             non-profit
             <br />
             projects
           </p>
         </Stat>
         <Stat sr="Donated $30k+ to charities">
-          <p className={`${LABEL} top-[38.1%] left-[33.73%] text-[8.41cqw]`}>
+          <p
+            className={`${LABEL_MOBILE} top-[38.1%] left-[33.73%] text-[8.41cqw]`}
+          >
             donated
           </p>
           <p
@@ -302,12 +326,16 @@ function MobileImpact() {
           >
             $30k+
           </p>
-          <p className={`${LABEL} top-[54.3%] left-[17.01%] text-[8.41cqw]`}>
+          <p
+            className={`${LABEL_MOBILE} top-[54.3%] left-[17.01%] text-[8.41cqw]`}
+          >
             to charities
           </p>
         </Stat>
         <Stat sr="Contributed 3k+ hours in volunteering">
-          <p className={`${LABEL} top-[69.5%] left-[23.36%] text-[8.41cqw]`}>
+          <p
+            className={`${LABEL_MOBILE} top-[69.5%] left-[23.36%] text-[8.41cqw]`}
+          >
             &amp; contributed
           </p>
           {/* Two tight lines (Figma: 101px pitch at 140px type). */}
@@ -318,7 +346,9 @@ function MobileImpact() {
             <br />
             hrs
           </p>
-          <p className={`${LABEL} top-[92.8%] left-[12.48%] text-[8.41cqw]`}>
+          <p
+            className={`${LABEL_MOBILE} top-[92.8%] left-[12.48%] text-[8.41cqw]`}
+          >
             in volunteering
           </p>
         </Stat>

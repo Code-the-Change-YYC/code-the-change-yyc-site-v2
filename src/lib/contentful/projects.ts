@@ -35,7 +35,8 @@ interface ExternalProjectsQueryResult {
     items: Array<{
       sys: { id: string };
       name: string | null;
-      descriptions: string | null;
+      /** A list field in Contentful; tolerate a plain string too. */
+      descriptions: string[] | string | null;
       logo: {
         url: string | null;
         contentType: string | null;
@@ -55,6 +56,17 @@ export interface ProjectCardData {
   logo: { url: string; isSvg: boolean } | null;
   /** Best available link: live site, then GitHub, then app stores. */
   href: string | null;
+}
+
+/**
+ * `descriptions` is a list of short phrases; rendering it directly runs them
+ * together ("CentreHelped"). Join them into sentences instead.
+ */
+function joinDescriptions(value: string[] | string | null): string | null {
+  const parts = (Array.isArray(value) ? value : [value ?? ""])
+    .map((part) => part.trim().replace(/[.;,]+$/, ""))
+    .filter(Boolean);
+  return parts.length ? `${parts.join(". ")}.` : null;
 }
 
 /**
@@ -78,7 +90,7 @@ export async function getProjects(): Promise<ProjectCardData[] | null> {
     cards.push({
       id: item.sys.id,
       name: item.name,
-      description: item.descriptions,
+      description: joinDescriptions(item.descriptions),
       logo: logo?.url
         ? { url: logo.url, isSvg: logo.contentType === "image/svg+xml" }
         : null,
