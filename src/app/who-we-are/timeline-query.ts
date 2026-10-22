@@ -1,4 +1,3 @@
-// src/app/about/timeline-query.ts
 export const TIMELINE_QUERY = `
   query TimelineEntries {
     timelineCollection(order: year_ASC) {

@@ -1,7 +1,6 @@
-// src/app/who-we-are/team-tabs.tsx
 "use client";
 
-import { useState } from "react";
+import { useId, useRef, useState, type KeyboardEvent } from "react";
 import Image from "next/image";
 import { CATEGORIES, type Category, type TeamMember } from "./team-data";
 
@@ -42,7 +41,7 @@ function TeamCard({ name, role, linkedinUrl, photoUrl }: TeamMember) {
       {photoUrl ? (
         <Image
           src={photoUrl}
-          alt={`Photo of ${name}`}
+          alt={name}
           fill
           sizes="(min-width: 768px) 25vw, 50vw"
           className="object-cover"
@@ -82,35 +81,80 @@ function TeamCard({ name, role, linkedinUrl, photoUrl }: TeamMember) {
 
 export function TeamTabs({ members }: { members: TeamMember[] }) {
   const [activeCategory, setActiveCategory] = useState<Category>("Executives");
+  const baseId = useId();
+  const tabRefs = useRef<Record<string, HTMLButtonElement | null>>({});
 
   const visibleMembers = members.filter((member) =>
     member.categories.includes(activeCategory),
   );
+  const activeIndex = CATEGORIES.indexOf(activeCategory);
+
+  function handleKeyDown(event: KeyboardEvent<HTMLButtonElement>) {
+    const step =
+      event.key === "ArrowRight" ? 1 : event.key === "ArrowLeft" ? -1 : 0;
+    if (step === 0) return;
+    event.preventDefault();
+    const next =
+      CATEGORIES[(activeIndex + step + CATEGORIES.length) % CATEGORIES.length];
+    setActiveCategory(next);
+    tabRefs.current[next]?.focus();
+  }
 
   return (
     <div>
-      <div className="flex gap-2 overflow-x-auto">
-        {CATEGORIES.map((category) => (
-          <button
-            key={category}
-            onClick={() => setActiveCategory(category)}
-            className={`rounded-t-xl px-4 py-2 text-sm font-medium whitespace-nowrap ${
-              category === activeCategory
-                ? "bg-green-50 text-green-900"
-                : "bg-green-100 text-green-800"
-            }`}
-          >
-            {category}
-          </button>
-        ))}
+      <div
+        role="tablist"
+        aria-label="Team categories"
+        className="flex gap-2 overflow-x-auto"
+      >
+        {CATEGORIES.map((category) => {
+          const selected = category === activeCategory;
+          return (
+            <button
+              key={category}
+              ref={(el) => {
+                tabRefs.current[category] = el;
+              }}
+              type="button"
+              role="tab"
+              id={`${baseId}-tab-${category}`}
+              aria-selected={selected}
+              aria-controls={`${baseId}-panel`}
+              tabIndex={selected ? 0 : -1}
+              onClick={() => setActiveCategory(category)}
+              onKeyDown={handleKeyDown}
+              className={`font-omnes rounded-t-xl px-4 py-2 text-sm leading-5 font-medium whitespace-nowrap ${
+                selected
+                  ? "bg-green-50 text-green-900"
+                  : "bg-green-100 text-green-800"
+              }`}
+            >
+              {category}
+            </button>
+          );
+        })}
       </div>
 
-      <div className="rounded-tr-xl rounded-b-xl bg-green-50 px-4 py-8 md:px-16 md:py-12">
-        <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
-          {visibleMembers.map((member) => (
-            <TeamCard key={member.id} {...member} />
-          ))}
-        </div>
+      <div
+        role="tabpanel"
+        id={`${baseId}-panel`}
+        aria-labelledby={`${baseId}-tab-${activeCategory}`}
+        tabIndex={0}
+        className={`rounded-tr-[20px] rounded-b-[20px] bg-green-50 px-4 py-8 md:px-16 md:py-12 ${
+          activeIndex === 0 ? "" : "rounded-tl-[20px]"
+        }`}
+      >
+        {visibleMembers.length > 0 ? (
+          <div className="grid grid-cols-2 gap-6 md:grid-cols-4">
+            {visibleMembers.map((member) => (
+              <TeamCard key={member.id} {...member} />
+            ))}
+          </div>
+        ) : (
+          <p className="font-omnes py-8 text-center text-lg text-green-800">
+            Team info coming soon.
+          </p>
+        )}
       </div>
     </div>
   );

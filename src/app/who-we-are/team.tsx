@@ -1,15 +1,14 @@
-// src/app/who-we-are/team.tsx
-import { contentfulFetch } from "@/lib/contentful/fetch";
+import { contentfulFetchOrNull } from "@/lib/contentful/fetch";
 import { TeamHeading } from "./team-heading";
 import { TeamTabs } from "./team-tabs";
 import { TEAM_QUERY, toTeamMembers, type TeamResponse } from "./team-data";
 
 export async function Team() {
-  const data = await contentfulFetch<TeamResponse>({
+  const data = await contentfulFetchOrNull<TeamResponse>({
     query: TEAM_QUERY,
     tags: ["adminTeamMember", "technicalTeam", "alumni"],
   });
-  const members = toTeamMembers(data);
+  const members = data ? toTeamMembers(data) : [];
 
   return (
     <section className="px-4 py-16 md:px-10 md:py-24">

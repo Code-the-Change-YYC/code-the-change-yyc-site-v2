@@ -39,6 +39,15 @@
   --color-grey-100: #ececec;
   --color-grey-50: #fcfcfc;
 }
+
+/*
+ * Omnes is licensed but not yet in the repo (no .woff2 files) — see
+ * CLAUDE.md -> "Not done yet" -> "Brand font". This variable stands in with
+ * a system fallback stack so `font-omnes` is usable today; swapping in
+ * next/font/local later only means changing this variable's source, not
+ * every call site. `@theme inline` (not plain `@theme`) so the pattern
+ * already matches how a next/font CSS variable would need to be consumed.
+ */
 @theme inline {
   --font-omnes: "Omnes", ui-rounded, "Nunito", sans-serif;
 }

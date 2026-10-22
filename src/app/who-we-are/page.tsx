@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { AboutHeading } from "./page-heading";
-import { PixelDivider } from "./pixel-divider";
+import { PixelDivider } from "@/components/pixel-divider";
 import { Timeline } from "./timeline";
 import { Team } from "./team";
 
@@ -12,8 +12,8 @@ export default function Page() {
   return (
     <main>
       <section className="-mt-24 bg-purple-500 px-4 pt-32 pb-16 md:-mt-28 md:px-32 md:pt-40">
-        <div className="flex flex-col items-start gap-10 md:flex-row md:gap-x-20">
-          <AboutHeading className="w-[267px] shrink-0 self-center md:self-start" />
+        <div className="mx-auto flex max-w-5xl flex-col items-center gap-6 md:flex-row md:gap-x-20">
+          <AboutHeading className="w-[267px] shrink-0" />
           <p className="font-omnes flex-1 text-lg font-normal text-white md:text-2xl">
             Code the Change YYC is a student-led initiative where students in
             technology-focused programs volunteer their time to work on projects
