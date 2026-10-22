@@ -33,5 +33,12 @@ jobs:
       - name: Typecheck
         run: pnpm typecheck
 
+      # Pages prerender Contentful content at build time. Only the read-only
+      # Delivery API values are exposed here; preview/webhook secrets stay out
+      # of CI. Sections must still render an empty state when these are
+      # missing (e.g. PRs from forks, which don't receive secrets).
       - name: Build
         run: pnpm build
+        env:
+          CONTENTFUL_SPACE_ID: ${{ secrets.CONTENTFUL_SPACE_ID }}
+          CONTENTFUL_ACCESS_TOKEN: ${{ secrets.CONTENTFUL_ACCESS_TOKEN }}

@@ -36,6 +36,7 @@ existed.
 | `green/50`   | —         | `#F1FEF8` | faint accent tint                                     |
 | `grey/800`   | `ink`     | `#292929` | body text, borders, dark buttons                      |
 | `grey/600`   | `inkSoft` | `#575757` | secondary text                                        |
+| `grey/500`   | —         | `#767676` | input placeholder text                                |
 | `grey/400`   | —         | `#A5A5A5` | muted text/disabled                                   |
 | `grey/50`    | —         | `#FCFCFC` | page background                                       |
 | `grey/00`    | —         | `#FFFFFF` | pure white surfaces (use Tailwind's built-in `white`) |
@@ -63,13 +64,15 @@ inline` (see Typography below).
 
 ## Typography
 
-- **Omnes** — the brand face, used for the wordmark and all headings. Licensed;
-  see CLAUDE.md. Weights in use: 300, 400, 500, 600, 700, 800.
+- **Omnes** — the brand face for all text (set on `<body>`). Self-hosted via
+  `src/lib/fonts.ts`. Figma's type styles use Regular 400 (body/headline
+  primary), Medium 500 (labels, titles), SemiBold 600 (emphasized headings)
+  and Bold 700 (hero). Only Medium and Bold are sourced so far — see CLAUDE.md.
 - **Nunito** — the mockup's declared fallback in the same stack.
 - **Caveat** — handwriting accent.
 - `ui-monospace` — small utility labels (e.g. video timestamp).
 
-Heading stack: `"Omnes", ui-rounded, "Nunito", sans-serif`.
+Stack: `var(--font-omnes-face), ui-rounded, "Nunito", sans-serif` (`font-omnes`).
 
 Observed scale: hero `clamp(56px, 7vw, 104px)` / weight 800 / line-height 0.98 /
 letter-spacing `-0.02em`. Inner-page H1 `clamp(48px, 6vw, 76px)` / 800.
