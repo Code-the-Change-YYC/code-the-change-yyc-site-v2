@@ -19,8 +19,7 @@ const QUERY = /* GraphQL */ `
         descriptions
         logo {
           url
-          width
-          height
+          contentType
         }
         githubLink
         liveProjectLink
@@ -39,8 +38,7 @@ interface ExternalProjectsQueryResult {
       descriptions: string | null;
       logo: {
         url: string | null;
-        width: number | null;
-        height: number | null;
+        contentType: string | null;
       } | null;
       githubLink: string | null;
       liveProjectLink: string | null;
@@ -54,7 +52,7 @@ export interface ProjectCardData {
   id: string;
   name: string;
   description: string | null;
-  logo: { url: string; width: number; height: number } | null;
+  logo: { url: string; isSvg: boolean } | null;
   /** Best available link: live site, then GitHub, then app stores. */
   href: string | null;
 }
@@ -82,11 +80,7 @@ export async function getProjects(): Promise<ProjectCardData[] | null> {
       name: item.name,
       description: item.descriptions,
       logo: logo?.url
-        ? {
-            url: logo.url,
-            width: logo.width ?? 351,
-            height: logo.height ?? 177,
-          }
+        ? { url: logo.url, isSvg: logo.contentType === "image/svg+xml" }
         : null,
       href:
         item.liveProjectLink ??

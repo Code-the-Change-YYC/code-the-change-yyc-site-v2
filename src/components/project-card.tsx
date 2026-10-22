@@ -18,7 +18,8 @@ export function ProjectCard({ project }: { project: ProjectCardData }) {
             src={logo.url}
             alt={`${name} logo`}
             fill
-            sizes="(min-width: 768px) 351px, 90vw"
+            sizes="(min-width: 768px) 440px, 90vw"
+            unoptimized={logo.isSvg}
             className="object-contain"
           />
         )}
@@ -36,13 +37,8 @@ export function ProjectCard({ project }: { project: ProjectCardData }) {
         </div>
         {href && (
           <div className="mt-auto">
-            <Button
-              href={href}
-              variant="outline"
-              icon="arrow-right"
-              aria-label={`Read more about ${name}`}
-            >
-              Read more
+            <Button href={href} variant="outline" icon="arrow-right">
+              Read more<span className="sr-only"> about {name}</span>
             </Button>
           </div>
         )}
