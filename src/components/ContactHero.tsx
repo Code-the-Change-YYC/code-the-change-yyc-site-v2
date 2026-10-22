@@ -15,7 +15,7 @@ export default function ContactHero() {
   return (
     <div className="flex flex-col items-center gap-10 lg:w-76.5 lg:shrink-0 lg:gap-16">
       <div className="relative inline-block">
-        <h1 className="font-omnes text-display-large font-semibold whitespace-nowrap text-purple-500">
+        <h1 className="font-omnes sm:text-display-large text-5xl font-semibold text-purple-500">
           Contact us
         </h1>
         {/* Sparkle: starts at the title's right edge, top-aligned with it. */}
@@ -30,7 +30,7 @@ export default function ContactHero() {
         {/* Underline: ~80% of the title width, inset ~10% from the left. */}
         {/* eslint-disable-next-line @next/next/no-img-element -- see above */}
         <img
-          className="absolute top-14 left-[10%] h-auto w-4/5"
+          className="absolute top-full left-[10%] -mt-2 h-auto w-4/5"
           src="/contact/underline.svg"
           alt=""
           width={219}
@@ -40,10 +40,10 @@ export default function ContactHero() {
       {/* eslint-disable-next-line @next/next/no-img-element -- see above */}
       <img
         className="h-auto w-55.75 max-w-full"
-        src="/contact/heart.svg"
+        src="/contact/heart.png"
         alt=""
-        width={223}
-        height={152}
+        width={447}
+        height={305}
       />
     </div>
   );

@@ -1,5 +1,7 @@
 "use client";
 
+import { useState } from "react";
+
 /*
  * Right column of the Contact page — Figma "contact/desktop" node 553:9537:
  * intro (24/32), 36px gap, then a 2-column form grid (24px col gap, 16px row
@@ -9,14 +11,16 @@
  */
 
 const FIELD_CLASS =
-  "block w-full rounded-xl border border-grey-400 py-3 pr-3 pl-4 text-base/6 placeholder:text-grey-500";
+  "block w-full rounded-xl border border-grey-400 py-3 pr-3 pl-4 text-base/6 placeholder:text-grey-500 focus:border-purple-500 focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-500/40";
 
 function InputField({
+  id,
   name,
   inputType,
   placeholder,
   className = "",
 }: {
+  id: string;
   name: string;
   inputType: string;
   placeholder: string;
@@ -24,14 +28,14 @@ function InputField({
 }) {
   return (
     <div className={`pb-5 ${className}`}>
-      <label className="mb-2 block pl-4 text-sm/5" htmlFor={name.toLowerCase()}>
+      <label className="mb-2 block pl-4 text-sm/5" htmlFor={id}>
         {name}
       </label>
       <input
         className={FIELD_CLASS}
         type={inputType}
-        id={name.toLowerCase()}
-        name={name.toLowerCase()}
+        id={id}
+        name={id}
         placeholder={placeholder}
         required
       />
@@ -40,19 +44,20 @@ function InputField({
 }
 
 export default function ContactForm() {
+  const [status, setStatus] = useState<"idle" | "success" | "error">("idle");
+
+  // There is no submission backend yet; this only validates and resets.
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    const form = e.currentTarget;
-    const formData = new FormData(form);
-    const formJson = Object.fromEntries(formData.entries());
-
-    form.reset();
-
-    //Logging the data for now, might be used for something later
-    console.log(formJson);
-
-    alert("Your message has been received!");
+    try {
+      const form = e.currentTarget;
+      new FormData(form);
+      form.reset();
+      setStatus("success");
+    } catch {
+      setStatus("error");
+    }
   }
 
   return (
@@ -69,14 +74,21 @@ export default function ContactForm() {
         className="mt-9 grid gap-x-6 gap-y-4 md:grid-cols-2"
         onSubmit={handleSubmit}
       >
-        <InputField name="Name" inputType="text" placeholder="Your full name" />
         <InputField
+          id="name"
+          name="Name"
+          inputType="text"
+          placeholder="Your full name"
+        />
+        <InputField
+          id="email"
           name="Email"
           inputType="email"
           placeholder="you@example.com"
         />
         <InputField
           className="md:col-span-2"
+          id="subject"
           name="Subject"
           inputType="text"
           placeholder="Ex: Partnership Inquiry"
@@ -95,7 +107,7 @@ export default function ContactForm() {
           />
         </div>
         <button
-          className="flex w-full cursor-pointer content-center justify-center gap-4 rounded-full bg-purple-500 px-3 py-2 text-xl font-semibold text-white md:col-span-2"
+          className="flex w-full cursor-pointer content-center justify-center gap-4 rounded-full bg-purple-500 px-3 py-2 text-xl font-semibold text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-500 md:col-span-2"
           type="submit"
         >
           Send Your Message
@@ -110,6 +122,14 @@ export default function ContactForm() {
             <polyline points="5,15 0,0 40,15 0,30 5,15 20,15" />
           </svg>
         </button>
+        <p
+          className="text-base/6 md:col-span-2"
+          role="status"
+          aria-live="polite"
+        >
+          {status === "success" && "Your message has been received!"}
+          {status === "error" && "Something went wrong. Please try again."}
+        </p>
       </form>
     </div>
   );
