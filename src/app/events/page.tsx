@@ -9,6 +9,8 @@ import { getHackathons } from "@/lib/contentful/hackathons";
 
 export const metadata: Metadata = {
   title: "Events",
+  description:
+    "Upcoming and past Code the Change YYC events, from workshops and socials to our annual Hack the Change hackathon in Calgary.",
 };
 
 // "Upcoming" is decided against Date.now() at render time, so re-render at
