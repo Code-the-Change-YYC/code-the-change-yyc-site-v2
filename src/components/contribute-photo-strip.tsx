@@ -17,13 +17,21 @@ const CORNERS = [
 
 const TILT = ["-rotate-2", "rotate-1", "rotate-2", "-rotate-1", "rotate-2"];
 
+const MIN_PHOTOS = 5;
+
 export function ContributePhotoStrip({
-  photos,
+  photos: source,
   label,
 }: {
   photos: ContributePhoto[];
   label: string;
 }) {
+  // Figma shows five photos so the row bleeds off both edges on desktop;
+  // cycle shorter lists up to that so wide screens never show a bare row.
+  const photos =
+    source.length > 0 && source.length < MIN_PHOTOS
+      ? Array.from({ length: MIN_PHOTOS }, (_, i) => source[i % source.length])
+      : source;
   return (
     <section aria-label={label} className="overflow-x-clip">
       <div className="flex justify-center">
