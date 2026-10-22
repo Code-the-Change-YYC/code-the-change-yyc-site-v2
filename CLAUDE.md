@@ -98,4 +98,4 @@ pnpm format        # prettier --write .
 
 ## Deployment
 
-Hosted on **Vercel** via the GitHub integration; no deploy workflow lives in this repo. A Vercel project exists, but its first build failed for project-config reasons (not this code), so auto-deploy is off via `vercel.json` (`{ "git": { "deploymentEnabled": false } }`). To re-enable: confirm the dashboard build settings (Framework: Next.js, Node 22.x, Root Directory: repo root), then delete `vercel.json` or set `deploymentEnabled: true`.
+Hosted on **Vercel** via the GitHub integration; no deploy workflow lives in this repo. A Vercel project exists, but its first build failed for project-config reasons (not this code), so auto-deploy is off via `vercel.json` (`{ "git": { "deploymentEnabled": false } }`). To re-enable: confirm the dashboard build settings (Framework: Next.js, Node 22.x, Root Directory: repo root), then delete `vercel.json` or set `deploymentEnabled: true`. The full owner checklist (env vars, Contentful webhook and preview URLs, personal CLI previews) is in `docs/deployment.md`.
