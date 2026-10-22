@@ -45,6 +45,35 @@
   --text-display-large: 3.5625rem;
   --text-display-large--line-height: 4rem;
   --text-display-large--letter-spacing: -0.0025em;
+
+  /*
+   * Figma type styles (size / line-height). Weights stay as utilities:
+   * "primary" = font-normal (Regular) or font-medium, "emphasized" =
+   * font-semibold or font-medium — see docs/design-system.md "Typography".
+   */
+  --text-display-small: 2.25rem;
+  --text-display-small--line-height: 2.75rem;
+  --text-headline-large: 2rem;
+  --text-headline-large--line-height: 2.5rem;
+  --text-headline-small: 1.5rem;
+  --text-headline-small--line-height: 2rem;
+  --text-title-large: 1.375rem;
+  --text-title-large--line-height: 1.75rem;
+  --text-title-medium: 1rem;
+  --text-title-medium--line-height: 1.5rem;
+  --text-body-large: 1rem;
+  --text-body-large--line-height: 1.5rem;
+  --text-body-medium: 0.875rem;
+  --text-body-medium--line-height: 1.25rem;
+  --text-label-large: 0.875rem;
+  --text-label-large--line-height: 1.25rem;
+
+  /* Figma elevation/100 and elevation/300 (stacked soft drop shadows). */
+  --shadow-elevation-100:
+    0 0 0.5px rgb(0 0 0 / 0.004), 0 1px 3px rgb(0 0 0 / 0.15);
+  --shadow-elevation-300:
+    0 0 0.5px rgb(0 0 0 / 0.15), 0 1px 3px rgb(0 0 0 / 0.1),
+    0 5px 12px rgb(0 0 0 / 0.13);
 }
 
 /*

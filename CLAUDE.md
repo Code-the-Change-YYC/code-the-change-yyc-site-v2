@@ -92,7 +92,7 @@ pnpm format        # prettier --write .
 ## Not done yet
 
 - **Brand font weights.** Omnes Medium (500) and Bold (700) are self-hosted via `next/font/local` in `src/lib/fonts.ts` (Latin-subset `.woff2` in `src/assets/fonts/`). Regular (400) and SemiBold (600) — both used in Figma — are not sourced yet, so the browser substitutes the nearest weight. Add them to `src/lib/fonts.ts` when available; never load Omnes from `fonts.cdnfonts.com` like the old site.
-- **Design tokens and components.** Not implemented — see `docs/design-system.md`.
+- **Page-level components.** Palette, type/elevation tokens, `Button`, `SectionHeading` and the nav are done (see `docs/design-system.md` "Components"); remaining sections are built per page.
 - **Contentful queries.** Only the transport exists; no content types are bound to pages yet.
 - **Brand assets.** Old repo's SVGs are unoptimized and need renaming + SVGO before reuse.
 
