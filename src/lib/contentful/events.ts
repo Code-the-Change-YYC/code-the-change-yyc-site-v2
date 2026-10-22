@@ -5,7 +5,7 @@ import type { ContentTypeId } from "./tags";
 
 /**
  * Events data for the site, from the Contentful `event` content type
- * (fields: name, date, location, signupLink, eventPoster, details).
+ * (fields: name, date, location, signupLink, eventPoster).
  */
 const QUERY = /* GraphQL */ `
   query Events($preview: Boolean!) {
@@ -18,7 +18,6 @@ const QUERY = /* GraphQL */ `
         date
         location
         signupLink
-        details
         eventPoster {
           url
           title
@@ -39,7 +38,6 @@ interface EventsQueryResult {
       date: string | null;
       location: string | null;
       signupLink: string | null;
-      details: unknown;
       eventPoster: {
         url: string | null;
         title: string | null;
