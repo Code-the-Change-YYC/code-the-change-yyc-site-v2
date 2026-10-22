@@ -9,7 +9,7 @@ import { SectionHeading } from "@/components/ui/section-heading";
  * The sponsor list itself comes from the current lineup (old site PR #165,
  * "Fix sponsor labels"), not the Figma mock, which only shows four logos.
  * Gold sponsors get the full-size Figma card in a row of three; silver ones a
- * slightly smaller card in a row of four. Every card links to the sponsor.
+ * slightly smaller card in a row of three. Every card links to the sponsor.
  * Still hardcoded, like the old site's data/sponsors.js — move to Contentful
  * if the lineup starts changing more than once a year.
  */
@@ -24,18 +24,18 @@ type Sponsor = {
 
 const GOLD: readonly Sponsor[] = [
   {
-    name: "Clio",
-    href: "https://www.clio.com",
-    src: "/brand/home/sponsor-clio.png",
-    width: 640,
-    height: 202,
-  },
-  {
     name: "Benevity",
     href: "https://benevity.com",
     src: "/brand/home/sponsor-benevity.png",
     width: 640,
     height: 175,
+  },
+  {
+    name: "Clio",
+    href: "https://www.clio.com",
+    src: "/brand/home/sponsor-clio.png",
+    width: 640,
+    height: 202,
   },
   {
     name: "AWS",
@@ -60,13 +60,6 @@ const SILVER: readonly Sponsor[] = [
     src: "/brand/home/sponsor-uofc-science.png",
     width: 640,
     height: 199,
-  },
-  {
-    name: "Village Ice Cream",
-    href: "https://www.villageicecream.com",
-    src: "/brand/home/sponsor-village-ice-cream.png",
-    width: 1124,
-    height: 1124,
   },
   {
     name: "Pason",
@@ -141,7 +134,7 @@ export function HomeSponsors() {
           </ul>
           <ul
             aria-label="Silver sponsors"
-            className="grid grid-cols-2 gap-6 md:gap-8 lg:grid-cols-4"
+            className="grid grid-cols-1 gap-6 sm:grid-cols-3 md:gap-8"
           >
             {SILVER.map((s) => (
               <SponsorCard key={s.name} sponsor={s} tier="silver" />
