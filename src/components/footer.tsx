@@ -24,7 +24,7 @@ import {
 
 const TITLE_CLASS = "font-omnes text-base/6 font-semibold text-white";
 const LINK_CLASS =
-  "font-omnes text-base/6 font-normal text-white transition-opacity hover:opacity-80";
+  "font-omnes text-base/6 font-normal text-white underline-offset-4 hover:underline focus-visible:underline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white";
 
 function isExternal(href: string) {
   return href.startsWith("http");
@@ -80,7 +80,7 @@ export function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="mt-auto rounded-t-4xl bg-purple-500 px-12 pt-6 pb-8 md:pt-24">
+    <footer className="rounded-t-4xl bg-purple-500 px-6 pt-6 pb-8 md:px-12 md:pt-24">
       <div className="mx-auto flex max-w-7xl flex-col gap-8">
         <div className="grid grid-cols-1 gap-6 md:grid-cols-[1fr_2fr] md:gap-16">
           {/* Logo (Figma frame is 398:228; PNG is cropped to that ratio). */}
