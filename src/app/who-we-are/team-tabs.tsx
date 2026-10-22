@@ -51,9 +51,11 @@ function TeamCard({ name, role, linkedinUrl, photoUrl }: TeamMember) {
       )}
 
       <div className="absolute inset-x-0 top-0 flex items-center gap-2 bg-green-200 p-2.5">
-        <span className="h-2 w-2 rounded-full bg-red-500" />
-        <span className="h-2 w-2 rounded-full bg-orange-500" />
-        <span className="h-2 w-2 rounded-full bg-green-500" />
+        <span aria-hidden="true" className="flex gap-2">
+          <span className="h-2 w-2 rounded-full bg-red-500" />
+          <span className="h-2 w-2 rounded-full bg-orange-500" />
+          <span className="h-2 w-2 rounded-full bg-green-500" />
+        </span>
         <span className="text-sm font-medium text-green-900">{role}</span>
       </div>
 
@@ -90,12 +92,15 @@ export function TeamTabs({ members }: { members: TeamMember[] }) {
   const activeIndex = CATEGORIES.indexOf(activeCategory);
 
   function handleKeyDown(event: KeyboardEvent<HTMLButtonElement>) {
-    const step =
-      event.key === "ArrowRight" ? 1 : event.key === "ArrowLeft" ? -1 : 0;
-    if (step === 0) return;
+    let nextIndex: number;
+    if (event.key === "ArrowRight") nextIndex = activeIndex + 1;
+    else if (event.key === "ArrowLeft") nextIndex = activeIndex - 1;
+    else if (event.key === "Home") nextIndex = 0;
+    else if (event.key === "End") nextIndex = CATEGORIES.length - 1;
+    else return;
     event.preventDefault();
     const next =
-      CATEGORIES[(activeIndex + step + CATEGORIES.length) % CATEGORIES.length];
+      CATEGORIES[(nextIndex + CATEGORIES.length) % CATEGORIES.length];
     setActiveCategory(next);
     tabRefs.current[next]?.focus();
   }
@@ -123,7 +128,7 @@ export function TeamTabs({ members }: { members: TeamMember[] }) {
               tabIndex={selected ? 0 : -1}
               onClick={() => setActiveCategory(category)}
               onKeyDown={handleKeyDown}
-              className={`font-omnes rounded-t-xl px-4 py-2 text-sm leading-5 font-medium whitespace-nowrap ${
+              className={`font-omnes rounded-t-xl px-4 py-2 text-sm leading-5 font-medium whitespace-nowrap focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-500 ${
                 selected
                   ? "bg-green-50 text-green-900"
                   : "bg-green-100 text-green-800"
@@ -140,7 +145,7 @@ export function TeamTabs({ members }: { members: TeamMember[] }) {
         id={`${baseId}-panel`}
         aria-labelledby={`${baseId}-tab-${activeCategory}`}
         tabIndex={0}
-        className={`rounded-tr-[20px] rounded-b-[20px] bg-green-50 px-4 py-8 md:px-16 md:py-12 ${
+        className={`rounded-tr-[20px] rounded-b-[20px] bg-green-50 px-4 py-8 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-500 md:px-16 md:py-12 ${
           activeIndex === 0 ? "" : "rounded-tl-[20px]"
         }`}
       >

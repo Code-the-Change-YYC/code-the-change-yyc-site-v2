@@ -66,7 +66,7 @@ export async function Timeline() {
 
               return (
                 <li
-                  key={entry.year}
+                  key={entry.sys.id}
                   className="relative w-full md:grid md:grid-cols-[1fr_40px_1fr] md:items-center md:gap-x-[72px] md:not-first:-mt-44"
                 >
                   <div
