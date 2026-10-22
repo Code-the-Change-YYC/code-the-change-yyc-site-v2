@@ -94,7 +94,7 @@ export function Footer() {
             alt="Code the Change YYC"
             width={903}
             height={517}
-            className="h-auto w-full self-start"
+            className="h-auto w-full max-w-[300px] self-start"
           />
 
           <nav

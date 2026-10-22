@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  useId,
-  useRef,
-  useState,
-  type CSSProperties,
-  type KeyboardEvent,
-} from "react";
+import { useId, useRef, useState, type KeyboardEvent } from "react";
 import { TeamCard } from "./team-card";
 import {
   CATEGORIES,
@@ -15,8 +9,6 @@ import {
   type Category,
   type TeamMember,
 } from "./team-data";
-
-const COLUMNS = { base: 2, md: 3, lg: 4 } as const;
 
 const FOCUS =
   "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-500";
@@ -35,19 +27,6 @@ export function TeamTabs({ members }: { members: TeamMember[] }) {
     showFilter ? project : null,
   );
 
-  // The panel also reserves 48px for the Tech project filter row.
-  // Tallest tab at each column count, so the panel height never jumps.
-  const tallest = Math.max(
-    0,
-    ...CATEGORIES.map((c) => membersFor(members, c, null).length),
-    ...projects.map((p) => membersFor(members, "Tech", p).length),
-  );
-  const rowsAt = (cols: number) => Math.max(2, Math.ceil(tallest / cols));
-  const panelVars = {
-    "--rows-base": rowsAt(COLUMNS.base),
-    "--rows-md": rowsAt(COLUMNS.md),
-    "--rows-lg": rowsAt(COLUMNS.lg),
-  } as CSSProperties;
   const activeIndex = CATEGORIES.indexOf(activeCategory);
 
   function selectCategory(category: Category) {
@@ -109,10 +88,9 @@ export function TeamTabs({ members }: { members: TeamMember[] }) {
         id={`${baseId}-panel`}
         aria-labelledby={`${baseId}-tab-${activeCategory}`}
         tabIndex={0}
-        style={panelVars}
         className={`rounded-tr-[20px] rounded-b-[20px] bg-green-50 px-3 py-6 md:px-6 lg:px-16 lg:py-12 ${FOCUS} ${
           activeIndex === 0 ? "" : "rounded-tl-[20px]"
-        } min-h-[calc(var(--rows-base)*263px+(var(--rows-base)-1)*24px+48px+48px)] md:min-h-[calc(var(--rows-md)*263px+(var(--rows-md)-1)*24px+48px+48px)] lg:min-h-[calc(var(--rows-lg)*263px+(var(--rows-lg)-1)*24px+48px+96px)]`}
+        }`}
       >
         {showFilter && (
           <div

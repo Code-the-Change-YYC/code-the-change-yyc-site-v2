@@ -4,8 +4,8 @@ import { SectionHeading } from "@/components/ui/section-heading";
 
 /**
  * WB-45 "Our sponsors". Figma sponsors 539:4241 (desktop), 603:2822 (tablet).
- * White logo cards with a soft shadow, 3 per row on desktop, wrapping down to
- * a single column on mobile. The lone fourth card is centred on its row.
+ * White logo cards with a soft shadow, 3 per row from tablet up (the lone fourth card sits
+ * left-aligned on row two, as in Figma), a single column on mobile.
  */
 
 const SPONSORS = [
@@ -51,18 +51,18 @@ export function HomeSponsors() {
           Our sponsors
         </SectionHeading>
 
-        <ul className="flex w-full flex-wrap justify-center gap-8">
+        <ul className="grid w-full grid-cols-1 gap-8 md:grid-cols-3">
           {SPONSORS.map((s) => (
             <li
               key={s.name}
-              className="shadow-elevation-100 flex h-[186px] w-full items-center justify-center rounded-2xl bg-white px-7 md:w-[calc((100%-2rem)/2)] lg:w-[calc((100%-4rem)/3)]"
+              className="shadow-elevation-100 flex h-[186px] items-center justify-center rounded-2xl bg-white px-7"
             >
               <Image
                 src={s.src}
                 alt={s.name}
                 width={s.width}
                 height={s.height}
-                sizes="(min-width: 1024px) 264px, (min-width: 768px) 320px, 280px"
+                sizes="(min-width: 1024px) 264px, (min-width: 768px) 180px, 280px"
                 className="h-auto max-h-[120px] w-full object-contain"
               />
             </li>

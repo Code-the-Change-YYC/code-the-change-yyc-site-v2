@@ -54,26 +54,26 @@ export async function Timeline() {
       </h2>
 
       {entries.length > 0 && (
-        <div className="relative mx-auto max-w-5xl">
+        <div className="relative mx-auto md:max-w-xl lg:max-w-5xl">
           <div
             aria-hidden="true"
-            className="bg-grey-200 absolute top-0 left-1/2 hidden h-full w-2 -translate-x-1/2 md:block"
+            className="bg-grey-200 absolute top-0 right-4 hidden h-full w-2 md:block lg:right-auto lg:left-1/2 lg:-translate-x-1/2"
           />
 
-          <ul className="flex flex-col items-center gap-8 md:items-stretch md:gap-0">
+          <ul className="flex flex-col items-center gap-8 md:items-stretch md:gap-10 lg:gap-0">
             {entries.map((entry, index) => {
               const isLeft = index % 2 === 0;
 
               return (
                 <li
                   key={entry.sys.id}
-                  className="relative w-full md:grid md:grid-cols-[1fr_40px_1fr] md:items-center md:gap-x-[72px] md:not-first:-mt-44"
+                  className="relative w-full md:grid md:grid-cols-[1fr_40px] md:items-center md:gap-x-6 lg:grid-cols-[1fr_40px_1fr] lg:gap-x-[72px] lg:not-first:-mt-44"
                 >
                   <div
-                    className={`flex ${
+                    className={`flex justify-center md:col-start-1 md:row-start-1 ${
                       isLeft
-                        ? "md:col-start-1 md:row-start-1 md:justify-end"
-                        : "md:col-start-3 md:row-start-1 md:justify-start"
+                        ? "lg:col-start-1 lg:justify-end"
+                        : "lg:col-start-3 lg:justify-start"
                     }`}
                   >
                     <TimelineCard entry={entry} />
