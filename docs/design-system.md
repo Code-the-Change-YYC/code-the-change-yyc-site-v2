@@ -1,6 +1,6 @@
 # Design system — "Direction 05 · True to CTC"
 
-Reference spec for the redesign. **Palette and header are implemented** (see
+Reference spec for the redesign. **Palette, type/elevation tokens, header and shared UI primitives are implemented** (see
 `src/app/globals.css` and `src/components/header.tsx`); most other components
 are still scaffolding. This document exists so the design does not have to be
 re-derived every time someone builds a component.
@@ -78,6 +78,67 @@ Observed scale: hero `clamp(56px, 7vw, 104px)` / weight 800 / line-height 0.98 /
 letter-spacing `-0.02em`. Inner-page H1 `clamp(48px, 6vw, 76px)` / 800.
 Card H3 23px / 700 / 1.15. Body 16–21px / 500 / ~1.55. Nav links 15px / 700.
 Buttons 14–16px / 700.
+
+### Type scale tokens
+
+Figma text styles are `@theme` tokens in `globals.css` (`text-<name>` sets
+size + line-height; weights are separate utilities). Figma's "primary" styles
+are Regular (`font-normal`) or Medium; "emphasized" are SemiBold
+(`font-semibold`).
+
+| Utility               | Size / line-height | Figma styles                                   |
+| --------------------- | ------------------ | ---------------------------------------------- |
+| `text-display-large`  | 57 / 64            | display/large/emphasized (hero)                |
+| `text-display-small`  | 36 / 44            | display/small/emphasized (SemiBold)            |
+| `text-headline-large` | 32 / 40            | headline/large primary (Regular), emphasized   |
+| `text-headline-small` | 24 / 32            | headline/small primary (Regular), emphasized   |
+| `text-title-large`    | 22 / 28            | title/large primary (Medium), emphasized       |
+| `text-title-medium`   | 16 / 24            | title/medium primary (Medium), emphasized      |
+| `text-body-large`     | 16 / 24            | body/large primary (Regular), emphasized (Med) |
+| `text-body-medium`    | 14 / 20            | body/medium primary (Regular)                  |
+| `text-label-large`    | 14 / 20            | label/large primary (Medium)                   |
+
+Nav links and buttons use `text-title-medium font-medium`.
+
+## Elevation
+
+Soft drop shadows from Figma, as `shadow-*` utilities:
+
+- `shadow-elevation-100` — cards at rest (`0 0 .5px, 0 1px 3px`).
+- `shadow-elevation-300` — the navbar pill (three stacked shadows).
+
+These are separate from the hard offset sticker shadow below.
+
+## Components
+
+Shared primitives live in `src/components/ui/`.
+
+**Button** — `src/components/ui/button.tsx`. One component for every pill and
+outline button. `variant`: `primary` (purple pill, default) | `outline` |
+`text`; `size`: `md` (default) | `sm`; `icon`: `arrow-up-right` |
+`arrow-right` | `envelope`. With `href` it renders `next/link`; http(s) URLs
+open in a new tab with an sr-only note; without `href` it renders a
+`<button>` (`type` defaults to `button`).
+
+```tsx
+<Button href={NEWSLETTER_SIGNUP_URL} icon="envelope">Join our newsletter</Button>
+<Button href="/projects/x" variant="outline" size="sm" icon="arrow-right">Read more</Button>
+<Button href="https://…" variant="outline" icon="arrow-up-right">Sign up</Button>
+```
+
+**SectionHeading** — `src/components/ui/section-heading.tsx`. Heading plus
+decorative brush underline. `as`: `h1|h2|h3`; `underline`: `green|mint|orange|red`
+(SVGs in `public/brand/decor/`); `align`: `center|left`; `size`:
+`headline` (32/40) | `display` (36/44).
+
+```tsx
+<SectionHeading underline="green">Students</SectionHeading>
+```
+
+**PixelDivider** — `src/components/pixel-divider.tsx`. Pixel-block section
+divider; see the file header for props.
+
+**EventCard** — `src/components/event-card.tsx` (arriving in a separate PR).
 
 ## Signature moves
 
