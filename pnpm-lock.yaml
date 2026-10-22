@@ -8,12 +8,6 @@ importers:
 
   .:
     dependencies:
-      '@contentful/rich-text-react-renderer':
-        specifier: ^16.2.2
-        version: 16.2.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
-      '@contentful/rich-text-types':
-        specifier: ^17.2.7
-        version: 17.2.7
       next:
         specifier: 16.2.12
         version: 16.2.12(@babel/core@7.29.7)(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
@@ -133,17 +127,6 @@ packages:
   '@babel/types@7.29.8':
     resolution: {integrity: sha512-Vj1jF3cPfxg7OAfoI7QnVKLoILlm2JF9pnVHrX8qx7AHMiYWT+NDAA7jChlNgRS4WTLc/fD1lXLmPixluj+3Gg==}
     engines: {node: '>=6.9.0'}
-
-  '@contentful/rich-text-react-renderer@16.2.2':
-    resolution: {integrity: sha512-3hwKp+tYHRxKyzYTjFpwpI+laczYO1VS0sldSEVqPXfLcQnQabfUmYAL4dGtA35r2ce0+Wp4XVy9u4c7jxH20Q==}
-    engines: {node: '>=20.0.0'}
-    peerDependencies:
-      react: ^16.8.6 || ^17.0.0 || ^18.0.0 || ^19.0.0
-      react-dom: ^16.8.6 || ^17.0.0 || ^18.0.0 || ^19.0.0
-
-  '@contentful/rich-text-types@17.2.7':
-    resolution: {integrity: sha512-aIdozk8vk5gsYcallOrwEiL6+GSlMXZorDOmiVELfpbVaXMJPJPlf2CBw3LUzviAqCw0UPQcKHHCwG7SdY7u5w==}
-    engines: {node: '>=20.0.0'}
 
   '@emnapi/core@1.10.0':
     resolution: {integrity: sha512-yq6OkJ4p82CAfPl0u9mQebQHKPJkY7WrIuk205cTYnYe+k2Z8YBh11FrbRG/H6ihirqcacOgl2BIO8oyMQLeXw==}
@@ -2150,14 +2133,6 @@ snapshots:
     dependencies:
       '@babel/helper-string-parser': 7.29.7
       '@babel/helper-validator-identifier': 7.29.7
-
-  '@contentful/rich-text-react-renderer@16.2.2(react-dom@19.2.4(react@19.2.4))(react@19.2.4)':
-    dependencies:
-      '@contentful/rich-text-types': 17.2.7
-      react: 19.2.4
-      react-dom: 19.2.4(react@19.2.4)
-
-  '@contentful/rich-text-types@17.2.7': {}
 
   '@emnapi/core@1.10.0':
     dependencies:
