@@ -6,14 +6,14 @@ import type { HackathonEntry } from "@/lib/contentful/hackathons";
 const DEFAULT_TITLE = "Hack the Change";
 const DEFAULT_INTRO =
   "Hack the Change is a 24-hour event, hosted by us, where students from across Canada come together to build innovative software solutions that create positive social impact. It’s our biggest event of the year and draws 450+ participants annually, with over 10k in prizes & donation dollars.";
-const DEFAULT_CTA_LABEL = "Get ready for HTC 2026!";
+const DEFAULT_CTA_LABEL = "Visit Hack the Change";
 const DEFAULT_CTA_HREF = "https://hackthechangeyyc.ca/";
 
 /**
  * "Hack the Change" panel (Figma 553:8683): title + brush underline beside an
  * intro paragraph, the hackathon timeline, and a CTA. Copy props default to the
  * Figma text until the Contentful content model gains fields for them (WB-36).
- * `entries` empty -> the timeline and its subtitle are simply omitted.
+ * `entries` empty or null -> the timeline and its subtitle are simply omitted.
  */
 export function HackTheChange({
   title = DEFAULT_TITLE,
@@ -28,11 +28,11 @@ export function HackTheChange({
   subtitle?: string;
   ctaLabel?: string;
   ctaHref?: string;
-  entries: HackathonEntry[];
+  entries: HackathonEntry[] | null;
 }) {
-  const hasTimeline = entries.length > 0;
+  const hasTimeline = !!entries && entries.length > 0;
   const subtitleText =
-    subtitle ?? `${DEFAULT_TITLE} started in ${entries[0]?.year ?? 2019}!`;
+    subtitle ?? `${DEFAULT_TITLE} started in ${entries?.[0]?.year ?? 2019}!`;
 
   return (
     <section
@@ -61,7 +61,7 @@ export function HackTheChange({
               <p className="font-omnes text-title-large text-center font-medium text-red-800">
                 {subtitleText}
               </p>
-              <HackathonTimeline entries={entries} />
+              <HackathonTimeline entries={entries ?? []} />
             </>
           ) : null}
 

@@ -59,19 +59,19 @@ export interface HackathonEntry {
 }
 
 /**
- * Hackathons oldest-first. Returns `[]` when Contentful is unreachable or has
- * none, so callers can simply hide the timeline.
+ * Hackathons oldest-first. Returns `null` when Contentful is unreachable (`[]` when there are
+ * none), so callers can hide the timeline.
  */
 export async function getHackathons({
   preview = false,
-}: { preview?: boolean } = {}): Promise<HackathonEntry[]> {
+}: { preview?: boolean } = {}): Promise<HackathonEntry[] | null> {
   const data = await contentfulFetchOrNull<HackathonsQueryResult>({
     query: QUERY,
     variables: { preview },
     preview,
     tags: ["hackathon" satisfies ContentTypeId],
   });
-  if (!data) return [];
+  if (!data) return null;
 
   const entries: Array<{ n: number; entry: HackathonEntry }> = [];
   for (const item of data.hackathonCollection.items) {

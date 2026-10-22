@@ -13,22 +13,22 @@ export function HackathonTimeline({ entries }: { entries: HackathonEntry[] }) {
     <div className="relative">
       <div
         aria-hidden="true"
-        className="bg-grey-200 absolute top-0 left-3 h-full w-1.5 -translate-x-1/2 rounded-full md:left-1/2"
+        className="bg-grey-200 absolute top-0 left-3 h-full w-1.5 -translate-x-1/2 rounded-full lg:left-1/2"
       />
-      <ol className="relative flex flex-col gap-8 md:gap-0">
+      <ol className="relative flex flex-col gap-8 lg:gap-0">
         {entries.map((entry, index) => {
           const isLeft = index % 2 === 0;
           return (
             <li
               key={entry.id}
-              className="relative pl-12 md:grid md:grid-cols-[1fr_40px_1fr] md:items-center md:gap-x-[72px] md:pl-0 md:not-first:-mt-44"
+              className="relative pl-12 lg:grid lg:grid-cols-[1fr_40px_1fr] lg:items-center lg:gap-x-[72px] lg:pl-0 lg:not-first:-mt-44"
             >
-              <TimelineDot className="absolute top-1/2 left-0 size-6 -translate-y-1/2 md:static md:col-start-2 md:row-start-1 md:size-10 md:translate-y-0" />
+              <TimelineDot className="absolute top-1/2 left-0 size-6 -translate-y-1/2 lg:static lg:col-start-2 lg:row-start-1 lg:size-10 lg:translate-y-0" />
               <div
                 className={`flex ${
                   isLeft
-                    ? "md:col-start-1 md:row-start-1 md:justify-end"
-                    : "md:col-start-3 md:row-start-1 md:justify-start"
+                    ? "lg:col-start-1 lg:row-start-1 lg:justify-end"
+                    : "lg:col-start-3 lg:row-start-1 lg:justify-start"
                 }`}
               >
                 <TimelineCard entry={entry} />
@@ -48,7 +48,7 @@ export function HackathonTimeline({ entries }: { entries: HackathonEntry[] }) {
  */
 function TimelineCard({ entry }: { entry: HackathonEntry }) {
   return (
-    <article className="relative aspect-[420/418] w-full max-w-[420px]">
+    <div className="relative aspect-[420/418] w-full max-w-[420px]">
       <div className="absolute top-[27%] left-[19%] h-[67%] w-[62%] overflow-hidden rounded-2xl bg-green-100">
         {entry.image ? (
           <Image
@@ -73,7 +73,7 @@ function TimelineCard({ entry }: { entry: HackathonEntry }) {
           {entry.blurb ? <p className="sr-only">{entry.blurb}</p> : null}
         </div>
       </div>
-    </article>
+    </div>
   );
 }
 
@@ -87,7 +87,7 @@ function TimelineDot({ className }: { className?: string }) {
       xmlns="http://www.w3.org/2000/svg"
     >
       <circle cx="20" cy="20" r="20" fill="var(--color-red-500)" />
-      <circle cx="20" cy="20" r="16" fill="white" />
+      <circle cx="20" cy="20" r="16" className="fill-white" />
       <circle cx="20" cy="20" r="12" fill="var(--color-red-500)" />
     </svg>
   );

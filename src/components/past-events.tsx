@@ -26,11 +26,14 @@ export function PastEvents({ events }: { events: EventCardData[] | null }) {
             clipped by the scroll container. */}
         <ul
           tabIndex={0}
-          aria-label="Past events, scrollable"
+          aria-label="Past events"
           className="-mx-4 mt-8 flex snap-x snap-mandatory gap-8 overflow-x-auto px-4 pt-2 pb-8 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-500 md:-mx-6 md:px-6"
         >
           {events.map((event) => (
-            <li key={event.id} className="flex shrink-0 snap-start">
+            <li
+              key={event.id}
+              className="flex w-80 max-w-[85vw] shrink-0 snap-start"
+            >
               <EventCard event={event} />
             </li>
           ))}
