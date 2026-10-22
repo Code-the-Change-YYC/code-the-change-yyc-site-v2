@@ -1,37 +1,50 @@
-const CONTACT_HERO_CLASS =
-  "relative w-xs shrink-0 grow-0 basis-xs pb-10 md:flex md:flex-col md:justify-center md:pb-0";
-
+/**
+ * Left column of the Contact page. Geometry from Figma "contact/desktop"
+ * (fileKey C7O1lsl8HhZw9q7RxHHcWZ), node 553:9538: title group 553:9219
+ * (text + sparkle 553:9221 + underline 553:9222), then the cube characters
+ * 553:9765, 64px apart, centred.
+ *
+ * The decorations are positioned relative to the title's own box (not the
+ * column), so they follow the text at any width / fallback font.
+ *
+ * The <img> usages below follow header.tsx: static brand SVGs served from
+ * /public; next/image would need images.dangerouslyAllowSVG, which is a
+ * project-level decision.
+ */
 export default function ContactHero() {
   return (
-    <div className={CONTACT_HERO_CLASS}>
-      <div className="relative h-fit w-full pb-10 md:absolute md:top-0 md:left-0">
-        <h1 className="font-omnes text-[57px] font-semibold text-purple-500">
+    <div className="flex flex-col items-center gap-10 lg:w-76.5 lg:shrink-0 lg:gap-16">
+      <div className="relative inline-block">
+        <h1 className="font-omnes text-display-large font-semibold whitespace-nowrap text-purple-500">
           Contact us
         </h1>
-        {/*eslint-disable-next-line @next/next/no-img-element
-        -- Copied from header.tsx following the reason stated in there*/}
+        {/* Sparkle: starts at the title's right edge, top-aligned with it. */}
+        {/* eslint-disable-next-line @next/next/no-img-element -- see above */}
         <img
-          className="absolute top-17 left-9"
+          className="absolute top-0 left-full -mt-0.75 -ml-px"
+          src="/contact/sparkle.svg"
           alt=""
+          width={36}
+          height={29}
+        />
+        {/* Underline: ~80% of the title width, inset ~10% from the left. */}
+        {/* eslint-disable-next-line @next/next/no-img-element -- see above */}
+        <img
+          className="absolute top-14 left-[10%] h-auto w-4/5"
           src="/contact/underline.svg"
-          width="219"
-          height="24"
-        />
-        {/*eslint-disable-next-line @next/next/no-img-element
-        -- Read Above*/}
-        <img
-          className="absolute top-2 right-0"
           alt=""
-          src="/contact/highlight.svg"
-          width="36"
-          height="29"
+          width={219}
+          height={24}
         />
       </div>
-      <div className="flex justify-center">
-        {/*eslint-disable-next-line @next/next/no-img-element
-        -- Read Above*/}
-        <img src="/contact/heart.svg" alt="" width="224" height="152" />
-      </div>
+      {/* eslint-disable-next-line @next/next/no-img-element -- see above */}
+      <img
+        className="h-auto w-55.75 max-w-full"
+        src="/contact/heart.svg"
+        alt=""
+        width={223}
+        height={152}
+      />
     </div>
   );
 }

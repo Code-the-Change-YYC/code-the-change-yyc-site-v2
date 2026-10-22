@@ -30,8 +30,14 @@
   --color-green-50: #f1fef8;
   --color-grey-800: #292929;
   --color-grey-600: #575757;
+  --color-grey-500: #767676;
   --color-grey-400: #a5a5a5;
   --color-grey-50: #fcfcfc;
+
+  /* Figma type style display/large/emphasized: 57/64, tracking -0.1425px. */
+  --text-display-large: 3.5625rem;
+  --text-display-large--line-height: 4rem;
+  --text-display-large--letter-spacing: -0.0025em;
 }
 
 /*

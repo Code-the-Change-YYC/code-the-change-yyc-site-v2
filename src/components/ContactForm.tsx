@@ -1,21 +1,34 @@
 "use client";
 
+/*
+ * Right column of the Contact page — Figma "contact/desktop" node 553:9537:
+ * intro (24/32), 36px gap, then a 2-column form grid (24px col gap, 16px row
+ * gap). Each field: 14/20 label inset 16px, 8px gap, 1px grey-400 border,
+ * 12px radius, 16/24 grey-500 placeholder, plus a 16px supporting-text row
+ * (reserved here as pb-5) for future validation messages.
+ */
+
+const FIELD_CLASS =
+  "block w-full rounded-xl border border-grey-400 py-3 pr-3 pl-4 text-base/6 placeholder:text-grey-500";
+
 function InputField({
   name,
   inputType,
   placeholder,
+  className = "",
 }: {
   name: string;
   inputType: string;
   placeholder: string;
+  className?: string;
 }) {
   return (
-    <div className="mb-4 w-full">
+    <div className={`pb-5 ${className}`}>
       <label className="mb-2 block pl-4 text-sm/5" htmlFor={name.toLowerCase()}>
         {name}
       </label>
       <input
-        className="border-grey-800 block w-full rounded-xl border py-3 pr-3 pl-4"
+        className={FIELD_CLASS}
         type={inputType}
         id={name.toLowerCase()}
         name={name.toLowerCase()}
@@ -27,10 +40,10 @@ function InputField({
 }
 
 export default function ContactForm() {
-  function handleSubmit(e: React.SubmitEvent) {
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
-    const form = e.target;
+    const form = e.currentTarget;
     const formData = new FormData(form);
     const formJson = Object.fromEntries(formData.entries());
 
@@ -43,8 +56,8 @@ export default function ContactForm() {
   }
 
   return (
-    <div className="font-omnes text-grey-800">
-      <p className="text-2xl">
+    <div className="font-omnes text-grey-800 min-w-0 lg:w-159.5 lg:max-w-159.5 lg:flex-1">
+      <p className="text-2xl/8">
         Wanna connect with us about a project, partnership, or anything else?
         Shoot us an email at{" "}
         <a className="font-semibold" href="mailto:codethechangeyyc@gmail.com">
@@ -52,39 +65,37 @@ export default function ContactForm() {
         </a>
         !
       </p>
-      <form className="mt-8 flex flex-col gap-4" onSubmit={handleSubmit}>
-        <div className="md:flex md:justify-between md:gap-6">
-          <InputField
-            name="Name"
-            inputType="text"
-            placeholder="Your full name"
-          />
-          <InputField
-            name="Email"
-            inputType="email"
-            placeholder="you@example.com"
-          />
-        </div>
+      <form
+        className="mt-9 grid gap-x-6 gap-y-4 md:grid-cols-2"
+        onSubmit={handleSubmit}
+      >
+        <InputField name="Name" inputType="text" placeholder="Your full name" />
         <InputField
+          name="Email"
+          inputType="email"
+          placeholder="you@example.com"
+        />
+        <InputField
+          className="md:col-span-2"
           name="Subject"
           inputType="text"
           placeholder="Ex: Partnership Inquiry"
         />
-        <div className="mb-4 w-full">
+        <div className="pb-5 md:col-span-2">
           <label className="mb-2 block pl-4 text-sm/5" htmlFor="message">
             Message
           </label>
           <textarea
-            className="border-grey-800 block w-full rounded-xl border py-3 pr-3 pl-4"
+            className={FIELD_CLASS}
             id="message"
             name="message"
-            placeholder="Anything you'd like us to know"
+            placeholder="Anything you’d like us to know"
             rows={1}
             required
           />
         </div>
         <button
-          className="mt-4 flex w-full cursor-pointer content-center justify-center gap-4 rounded-xl bg-purple-500 px-3 py-2 text-xl font-semibold text-white"
+          className="flex w-full cursor-pointer content-center justify-center gap-4 rounded-full bg-purple-500 px-3 py-2 text-xl font-semibold text-white md:col-span-2"
           type="submit"
         >
           Send Your Message
