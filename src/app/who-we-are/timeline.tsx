@@ -1,4 +1,4 @@
-import Image from "next/image";
+import { TimelineFolderCard } from "@/components/timeline-folder-card";
 import { contentfulFetchOrNull } from "@/lib/contentful/fetch";
 import { TimelineDot } from "./timeline-dot";
 import {
@@ -9,33 +9,22 @@ import {
 
 const FALLBACK_START_YEAR = 2019;
 
-/**
- * One "salvation army" card from Figma (746:3261): a photo peeking out above
- * a mint panel that carries the year. Panel and photo share the middle 62% of
- * the 420x418 artboard.
- */
 function TimelineCard({ entry }: { entry: TimelineEntry }) {
   const photo = entry.largeImage ?? entry.smallImage;
 
   return (
-    <div className="relative aspect-[420/418] w-full max-w-[420px]">
-      <div className="absolute top-[27%] left-[19%] h-[67%] w-[62%] overflow-hidden rounded-2xl bg-green-100">
-        {photo && (
-          <Image
-            src={photo.url}
-            alt={entry.description ?? `Code the Change YYC in ${entry.year}`}
-            fill
-            sizes="(min-width: 1024px) 260px, 62vw"
-            className="object-cover"
-          />
-        )}
-      </div>
-      <div className="absolute top-[52%] left-[19%] h-[44%] w-[62%] rounded-2xl bg-green-50">
-        <p className="font-omnes text-grey-800 absolute bottom-6 left-6 text-2xl leading-8">
-          {entry.year}
-        </p>
-      </div>
-    </div>
+    <TimelineFolderCard
+      image={
+        photo
+          ? {
+              url: photo.url,
+              alt: entry.description ?? `Code the Change YYC in ${entry.year}`,
+            }
+          : null
+      }
+      year={entry.year}
+      description={entry.description}
+    />
   );
 }
 
