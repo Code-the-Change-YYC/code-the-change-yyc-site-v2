@@ -1,4 +1,4 @@
-import type { ReactNode } from "react";
+import type { ComponentPropsWithoutRef, ReactNode } from "react";
 
 /**
  * Section heading with the hand-drawn brush underline used across pages
@@ -14,7 +14,8 @@ import type { ReactNode } from "react";
  *     Hack the Change
  *   </SectionHeading>
  *
- * Server component. Text colour is inherited — set it via `className`.
+ * Native heading attrs (`id`, `aria-*`) are forwarded, so sections can use
+ * `aria-labelledby` or anchors. Server component. Text colour is inherited — set it via `className`.
  */
 
 export type Underline = "green" | "mint" | "orange" | "red";
@@ -38,6 +39,7 @@ export function SectionHeading({
   size = "headline",
   className,
   children,
+  ...rest
 }: {
   as?: "h1" | "h2" | "h3";
   underline?: Underline;
@@ -45,11 +47,12 @@ export function SectionHeading({
   size?: keyof typeof SIZE;
   className?: string;
   children: ReactNode;
-}) {
+} & Omit<ComponentPropsWithoutRef<"h2">, "children" | "className">) {
   const alignment =
     align === "center" ? "items-center text-center" : "items-start text-left";
   return (
     <Tag
+      {...rest}
       className={`font-omnes flex flex-col ${alignment} ${SIZE[size]} ${className ?? ""}`}
     >
       <span>{children}</span>

@@ -103,7 +103,13 @@ export function Header() {
       </nav>
 
       {/* Small width nav (Figma node 603:3159) — below md. */}
-      <div className="w-full max-w-sm md:hidden">
+      <nav
+        aria-label="Primary"
+        className="w-full max-w-sm md:hidden"
+        onKeyDown={(e) => {
+          if (e.key === "Escape") setMenuOpen(false);
+        }}
+      >
         <div
           className={`flex items-center justify-between gap-12 rounded-full px-4 py-2 ${PILL_CHROME}`}
         >
@@ -148,7 +154,7 @@ export function Header() {
             ))}
           </ul>
         )}
-      </div>
+      </nav>
     </header>
   );
 }

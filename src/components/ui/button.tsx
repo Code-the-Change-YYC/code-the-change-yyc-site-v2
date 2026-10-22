@@ -46,20 +46,20 @@ type NativeButtonProps = CommonProps & {
 export type ButtonProps = LinkButtonProps | NativeButtonProps;
 
 const BASE =
-  "font-omnes inline-flex items-center justify-center gap-2 whitespace-nowrap transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-purple-500 motion-reduce:transition-none";
+  "font-omnes inline-flex items-center justify-center gap-2 whitespace-nowrap transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-purple-500 motion-reduce:transition-none disabled:cursor-not-allowed disabled:opacity-50";
 
 const STYLES: Record<Variant, Record<Size, string>> = {
   primary: {
-    md: "rounded-full bg-purple-500 px-6 py-4 text-headline-small font-normal text-white hover:bg-purple-800",
-    sm: "rounded-full bg-purple-500 px-4 py-2.5 text-title-medium font-medium text-white hover:bg-purple-800",
+    md: "rounded-full bg-purple-500 px-6 py-4 text-headline-small font-normal text-white hover:bg-purple-800 disabled:hover:bg-purple-500",
+    sm: "rounded-full bg-purple-500 px-4 py-2.5 text-title-medium font-medium text-white hover:bg-purple-800 disabled:hover:bg-purple-500",
   },
   outline: {
-    md: "rounded-xl border border-grey-400 px-4 py-2.5 text-title-medium font-medium text-grey-800 hover:border-grey-800 hover:bg-grey-50",
-    sm: "rounded-xl border border-grey-400 px-3 py-1 text-label-large font-medium text-grey-800 hover:border-grey-800 hover:bg-grey-50",
+    md: "rounded-xl border border-grey-400 px-4 py-2.5 text-title-medium font-medium text-grey-800 hover:border-grey-800 hover:bg-grey-50 disabled:hover:border-grey-400 disabled:hover:bg-transparent",
+    sm: "rounded-xl border border-grey-400 px-3 py-1 text-label-large font-medium text-grey-800 hover:border-grey-800 hover:bg-grey-50 disabled:hover:border-grey-400 disabled:hover:bg-transparent",
   },
   text: {
-    md: "text-title-medium font-medium text-purple-800 underline-offset-4 hover:underline",
-    sm: "text-label-large font-medium text-purple-800 underline-offset-4 hover:underline",
+    md: "text-title-medium font-medium text-purple-800 underline-offset-4 hover:underline disabled:hover:no-underline",
+    sm: "text-label-large font-medium text-purple-800 underline-offset-4 hover:underline disabled:hover:no-underline",
   },
 };
 
