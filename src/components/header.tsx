@@ -105,7 +105,7 @@ export function Header() {
       {/* Small width nav (Figma node 603:3159) — below md. */}
       <nav
         aria-label="Primary"
-        className="w-full max-w-sm md:hidden"
+        className="w-fit md:hidden"
         onKeyDown={(e) => {
           if (e.key === "Escape") setMenuOpen(false);
         }}
