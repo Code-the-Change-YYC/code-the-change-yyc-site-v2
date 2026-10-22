@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import { NEWSLETTER_SIGNUP_URL } from "./src/lib/newsletter";
 
 const nextConfig: NextConfig = {
   images: {
@@ -13,6 +14,16 @@ const nextConfig: NextConfig = {
         pathname: "/963e09izo0py/**",
       },
     ],
+  },
+  async redirects() {
+    return [
+      { source: "/our-team", destination: "/who-we-are", permanent: false },
+      {
+        source: "/newsletter",
+        destination: NEWSLETTER_SIGNUP_URL,
+        permanent: false,
+      },
+    ];
   },
 };
 

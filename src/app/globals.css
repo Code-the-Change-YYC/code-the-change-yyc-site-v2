@@ -76,6 +76,9 @@
     0 0 0.5px rgb(0 0 0 / 0.15), 0 1px 3px rgb(0 0 0 / 0.1),
     0 5px 12px rgb(0 0 0 / 0.13);
 
+  /* Figma orange scale, used by the Contribute role tabs (get_variable_defs 553:8225). */
+  --color-orange-100: #fff3eb;
+  --color-orange-50: #fff9f5;
   /* Figma red/50 — Hack the Change panel (553:8683). */
   --color-red-50: #fff0f3;
 }
