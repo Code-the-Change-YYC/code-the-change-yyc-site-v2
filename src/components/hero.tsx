@@ -1,3 +1,5 @@
+import Image from "next/image";
+
 import { NEWSLETTER_SIGNUP_URL } from "@/lib/newsletter";
 
 /**
@@ -30,17 +32,26 @@ function EnvelopeIcon() {
  *
  * Figma "CTC website Redesign 2026" (fileKey C7O1lsl8HhZw9q7RxHHcWZ):
  * tablet 603:2711, mobile 603:3157. Desktop 602:2161 has only background
- * art, so tablet sizes are reused from md up.
+ * art; text uses tablet sizes from md up and, from lg, a smaller 640px column
+ * centred in the sky between the blimp and the clouds.
  */
+// Arbitrary px font sizes below are Figma-exact values; tokens come later.
 export function Hero() {
   return (
-    // TODO(WB-20): the hero illustration is a separate ticket. Add it as an
-    // absolutely-positioned layer behind/below this text block (the section
-    // is already `relative`); keep the text in the z-10 wrapper.
-    <section className="relative isolate px-4 pt-14 pb-16 md:pt-24 md:pb-32">
-      <div className="relative z-10 mx-auto flex max-w-[653px] flex-col items-center gap-8 text-center">
+    <section className="relative isolate min-h-[780px] overflow-x-clip px-4 pt-28 pb-16 md:min-h-[1040px] md:pt-36 lg:aspect-[1280/832] lg:min-h-0 lg:pt-32 lg:pb-0 2xl:max-h-[960px]">
+      {/* Figma 602:2161. Anchored to the bottom so the grass always meets the
+          pixel transition below; cropped at the sides on narrow screens. */}
+      <Image
+        src="/brand/home/hero-illustration.jpg"
+        alt=""
+        fill
+        priority
+        sizes="100vw"
+        className="-z-10 object-cover object-[52%_100%] md:object-[45%_100%] lg:object-bottom"
+      />
+      <div className="relative z-10 mx-auto flex max-w-[653px] flex-col items-center gap-8 text-center lg:max-w-[640px]">
         <div className="flex flex-col items-center gap-4">
-          <h1 className="font-omnes text-[57px] leading-16 font-bold tracking-[-0.0025em] text-purple-500 md:text-[88px] md:leading-24">
+          <h1 className="font-omnes text-[57px] leading-16 font-bold tracking-[-0.0025em] text-purple-500 md:text-[88px] md:leading-24 lg:text-[64px] lg:leading-[72px] xl:text-[72px] xl:leading-20">
             Coding a better world together.
           </h1>
           <p className="font-omnes text-grey-600 max-w-[497px] text-2xl leading-8 md:text-[32px] md:leading-10">
