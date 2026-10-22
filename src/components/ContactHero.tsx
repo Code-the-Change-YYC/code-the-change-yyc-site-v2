@@ -40,10 +40,10 @@ export default function ContactHero() {
       {/* eslint-disable-next-line @next/next/no-img-element -- see above */}
       <img
         className="h-auto w-55.75 max-w-full"
-        src="/contact/heart.png"
+        src="/contact/heart.svg"
         alt=""
-        width={447}
-        height={305}
+        width={223}
+        height={152}
       />
     </div>
   );
