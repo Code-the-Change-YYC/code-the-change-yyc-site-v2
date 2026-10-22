@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useId, useState } from "react";
 
 import { NAV_LINKS } from "@/lib/links";
@@ -13,21 +14,26 @@ import { NAV_LINKS } from "@/lib/links";
  *  - node 596:1541, "width=Default" (647x64) — full pill w/ inline links.
  *  - node 603:3159, "width=small" (239x64) — collapsed logo + Menu button.
  *
- * The pill uses a soft blurred shadow (Figma's `elevation/300` token: three
- * stacked soft drop-shadows) plus a thin purple-500 border, NOT the hard
+ * The pill uses a soft blurred shadow (Figma's `elevation/300` token, i.e.
+ * `shadow-elevation-300`) plus a thin purple-500 border, NOT the hard
  * offset "sticker" shadow used elsewhere in the design system (see
  * docs/design-system.md "Signature moves" for that exception, called out
  * explicitly so it doesn't get "fixed" later to match the sticker cards).
  */
 
-// elevation/300 (Figma variable): three stacked soft drop-shadows.
-const ELEVATION_300 =
-  "drop-shadow-[0px_0px_0.5px_rgba(0,0,0,0.15)] drop-shadow-[0px_1px_3px_rgba(0,0,0,0.1)] drop-shadow-[0px_5px_12px_rgba(0,0,0,0.13)]";
+// elevation/300 is the `shadow-elevation-300` token in globals.css.
+const PILL_CHROME = "border-2 border-purple-500 bg-white shadow-elevation-300";
 
-const PILL_CHROME = `border-2 border-purple-500 bg-white ${ELEVATION_300}`;
+// Figma "button - text" (362:182): px-4 py-2.5, title-medium. The current
+// page gets a subtle purple tint + purple-800 text (AA on the tint).
+const NAV_LINK_BASE =
+  "rounded-full px-4 py-2.5 font-omnes text-title-medium font-medium whitespace-nowrap transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-500 motion-reduce:transition-none";
+const NAV_LINK_IDLE = `${NAV_LINK_BASE} text-grey-800 hover:bg-grey-50`;
+const NAV_LINK_ACTIVE = `${NAV_LINK_BASE} bg-purple-500/10 text-purple-800`;
 
-const NAV_LINK_CLASS =
-  "rounded-full px-4 py-2.5 font-omnes text-base font-medium whitespace-nowrap text-grey-800 transition-colors hover:bg-grey-50";
+function isActive(pathname: string, href: string) {
+  return pathname === href || pathname.startsWith(`${href}/`);
+}
 
 function Logo() {
   return (
@@ -65,6 +71,7 @@ function Logo() {
 export function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const menuPanelId = useId();
+  const pathname = usePathname();
 
   return (
     <header className="sticky top-4 z-50 flex justify-center px-4">
@@ -77,7 +84,17 @@ export function Header() {
         <ul className="flex items-center gap-2">
           {NAV_LINKS.map((link) => (
             <li key={link.href}>
-              <Link href={link.href} className={NAV_LINK_CLASS}>
+              <Link
+                href={link.href}
+                aria-current={
+                  isActive(pathname, link.href) ? "page" : undefined
+                }
+                className={
+                  isActive(pathname, link.href)
+                    ? NAV_LINK_ACTIVE
+                    : NAV_LINK_IDLE
+                }
+              >
                 {link.label}
               </Link>
             </li>
@@ -86,7 +103,13 @@ export function Header() {
       </nav>
 
       {/* Small width nav (Figma node 603:3159) — below md. */}
-      <div className="w-full max-w-sm md:hidden">
+      <nav
+        aria-label="Primary"
+        className="w-full max-w-sm md:hidden"
+        onKeyDown={(e) => {
+          if (e.key === "Escape") setMenuOpen(false);
+        }}
+      >
         <div
           className={`flex items-center justify-between gap-12 rounded-full px-4 py-2 ${PILL_CHROME}`}
         >
@@ -104,7 +127,7 @@ export function Header() {
             aria-expanded={menuOpen}
             aria-controls={menuPanelId}
             onClick={() => setMenuOpen((open) => !open)}
-            className={NAV_LINK_CLASS}
+            className={NAV_LINK_IDLE}
           >
             {menuOpen ? "Close" : "Menu"}
           </button>
@@ -120,7 +143,10 @@ export function Header() {
                 <Link
                   href={link.href}
                   onClick={() => setMenuOpen(false)}
-                  className={`block ${NAV_LINK_CLASS}`}
+                  aria-current={
+                    isActive(pathname, link.href) ? "page" : undefined
+                  }
+                  className={`block ${isActive(pathname, link.href) ? NAV_LINK_ACTIVE : NAV_LINK_IDLE}`}
                 >
                   {link.label}
                 </Link>
@@ -128,7 +154,7 @@ export function Header() {
             ))}
           </ul>
         )}
-      </div>
+      </nav>
     </header>
   );
 }
