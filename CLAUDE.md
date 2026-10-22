@@ -22,6 +22,8 @@ These are the ones where a plausible-looking change silently breaks something, o
 
 The Next 13/14 default flipped in Next 15. An un-annotated `fetch` hits the network on every request. Every Contentful call must go through `contentfulFetch` in `src/lib/contentful/fetch.ts`, which sets `cache: "force-cache"` explicitly. Do not add bare `fetch` calls to Contentful.
 
+Page sections should use `contentfulFetchOrNull` and render an empty state for `null`, so a Contentful outage or missing credentials (fork PRs, a fresh clone) never fails the build. CI gets the read-only `CONTENTFUL_SPACE_ID` / `CONTENTFUL_ACCESS_TOKEN` as repo secrets.
+
 ### `revalidateTag` takes two arguments
 
 ```ts
@@ -89,7 +91,7 @@ pnpm format        # prettier --write .
 
 ## Not done yet
 
-- **Brand font.** Omnes is licensed but not sourced yet — don't pull it from `fonts.cdnfonts.com` like the old site. Once `.woff2` files exist, load via `next/font/local` in `src/lib/fonts.ts`.
+- **Brand font weights.** Omnes Medium (500) and Bold (700) are self-hosted via `next/font/local` in `src/lib/fonts.ts` (Latin-subset `.woff2` in `src/assets/fonts/`). Regular (400) and SemiBold (600) — both used in Figma — are not sourced yet, so the browser substitutes the nearest weight. Add them to `src/lib/fonts.ts` when available; never load Omnes from `fonts.cdnfonts.com` like the old site.
 - **Design tokens and components.** Not implemented — see `docs/design-system.md`.
 - **Contentful queries.** Only the transport exists; no content types are bound to pages yet.
 - **Brand assets.** Old repo's SVGs are unoptimized and need renaming + SVGO before reuse.

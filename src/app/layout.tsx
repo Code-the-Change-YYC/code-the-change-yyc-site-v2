@@ -1,12 +1,10 @@
 import type { Metadata } from "next";
 import "./globals.css";
 
+import { Footer } from "@/components/footer";
 import { Header } from "@/components/header";
+import { omnes } from "@/lib/fonts";
 import { SITE_URL } from "@/lib/site";
-
-// TODO(design): swap the system font stack for self-hosted Omnes via
-// next/font/local once licensed .woff2 files are in public/fonts/.
-// See CLAUDE.md → "Brand font" for the exact wiring (@theme inline).
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -30,12 +28,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="h-full antialiased">
-      <body className="flex min-h-full flex-col">
+    <html lang="en" className={`${omnes.variable} h-full antialiased`}>
+      <body className="font-omnes flex min-h-full flex-col">
         <Header />
-        {children}
+        <div className="flex-1">{children}</div>
+        <Footer />
       </body>
-      {/* TODO(design): site footer goes here */}
     </html>
   );
 }

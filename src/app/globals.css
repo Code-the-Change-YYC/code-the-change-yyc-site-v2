@@ -19,29 +19,41 @@
 @theme {
   --color-purple-500: #7054fd;
   --color-purple-400: #a688ff;
+  --color-purple-800: #2911a7;
+  --color-red-800: #a70a38;
   --color-red-500: #fe4d6e;
   --color-red-200: #ffd2dc;
+  --color-orange-900: #841101;
   --color-orange-500: #fe6a55;
   --color-orange-200: #ffd6c2;
-  --color-orange-900: #841101;
+  --color-green-900: #013c30;
+  --color-green-800: #02644f;
   --color-green-500: #05d3a8;
   --color-green-300: #66f4c5;
   --color-green-200: #b9fbe3;
+  --color-green-100: #d9fced;
   --color-green-50: #f1fef8;
   --color-grey-800: #292929;
   --color-grey-600: #575757;
+  --color-grey-500: #767676;
   --color-grey-400: #a5a5a5;
+  --color-grey-200: #d6d6d6;
+  --color-grey-100: #ececec;
   --color-grey-50: #fcfcfc;
+
+  /* Figma type style display/large/emphasized: 57/64, tracking -0.1425px. */
+  --text-display-large: 3.5625rem;
+  --text-display-large--line-height: 4rem;
+  --text-display-large--letter-spacing: -0.0025em;
 }
 
 /*
- * Omnes is licensed but not yet in the repo (no .woff2 files) — see
- * CLAUDE.md -> "Not done yet" -> "Brand font". This variable stands in with
- * a system fallback stack so `font-omnes` is usable today; swapping in
- * next/font/local later only means changing this variable's source, not
- * every call site. `@theme inline` (not plain `@theme`) so the pattern
- * already matches how a next/font CSS variable would need to be consumed.
+ * Omnes is self-hosted via next/font/local (src/lib/fonts.ts), which sets
+ * `--font-omnes-face` on <html>. `@theme inline` (not plain `@theme`) is
+ * required: plain @theme would emit this at :root, where the next/font
+ * variable isn't defined. The system stack after it covers the moment
+ * before the font loads and any glyph Omnes lacks (e.g. arrows).
  */
 @theme inline {
-  --font-omnes: "Omnes", ui-rounded, "Nunito", sans-serif;
+  --font-omnes: var(--font-omnes-face), ui-rounded, "Nunito", sans-serif;
 }
