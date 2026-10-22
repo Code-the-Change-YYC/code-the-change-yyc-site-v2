@@ -1,13 +1,16 @@
 import type { Metadata } from "next";
 
 import { ImpactStats } from "@/components/impact-stats";
+import { ProjectsGrid } from "@/components/projects-grid";
+import { getProjects } from "@/lib/contentful/projects";
 
 export const metadata: Metadata = {
   title: "Projects",
 };
 
-// TODO(contentful): wire up the content types this page needs (project grid, WB-25).
-export default function Page() {
+export default async function Page() {
+  const projects = await getProjects();
+
   return (
     <main className="flex flex-col items-center gap-8 pt-16 pb-16">
       <div className="flex flex-col items-center">
@@ -31,6 +34,8 @@ export default function Page() {
       <div className="w-full">
         <ImpactStats />
       </div>
+
+      <ProjectsGrid projects={projects} />
     </main>
   );
 }
