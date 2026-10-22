@@ -49,14 +49,19 @@ export function Hero() {
       {/* Figma 602:2161. Anchored low so the grass always meets the pixel
           transition below; cropped at the sides on narrow screens and a
           little top and bottom once the height cap kicks in on wide ones. */}
-      <Image
-        src="/brand/home/hero-illustration.jpg"
-        alt=""
-        fill
-        priority
-        sizes="100vw"
-        className="-z-10 object-cover object-[52%_100%] md:object-[45%_100%] lg:object-[50%_60%]"
-      />
+      {/* md only: show the whole illustration (both character pairs and the
+          umbrella, like Figma 603:2711) bottom-anchored at its natural
+          aspect instead of cropping to the middle of a tall box. */}
+      <div className="absolute inset-0 -z-10 md:inset-x-auto md:inset-y-auto md:bottom-0 md:left-1/2 md:aspect-[2560/1664] md:h-auto md:w-[max(100%,975px)] md:-translate-x-1/2 md:[mask-image:linear-gradient(to_bottom,transparent,black_18%)] lg:inset-0 lg:left-0 lg:aspect-auto lg:h-full lg:w-full lg:translate-x-0 lg:[mask-image:none]">
+        <Image
+          src="/brand/home/hero-illustration.jpg"
+          alt=""
+          fill
+          priority
+          sizes="(min-width: 1024px) 100vw, (min-width: 768px) 975px, 100vw"
+          className="object-cover object-[52%_100%] md:object-center lg:object-[50%_60%]"
+        />
+      </div>
       <div className="relative z-10 mx-auto flex max-w-[653px] flex-col items-center gap-8 text-center min-[2000px]:max-w-[820px] lg:max-w-[640px]">
         <div className="flex flex-col items-center gap-4">
           <h1 className="font-omnes text-[57px] leading-16 font-bold tracking-[-0.0025em] text-purple-500 min-[2000px]:text-[88px] min-[2000px]:leading-24 md:text-[88px] md:leading-24 lg:text-[64px] lg:leading-[72px] xl:text-[72px] xl:leading-20">
