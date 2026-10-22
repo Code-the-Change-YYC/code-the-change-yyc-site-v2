@@ -42,15 +42,6 @@
   --color-grey-100: #ececec;
   --color-grey-50: #fcfcfc;
 
-  /*
-   * Figma `elevation/300` — soft, blurred card shadow (three stacked layers).
-   * Generates the `shadow-elevation-300` utility. Used by event cards; the
-   * nav pill uses the same values as a drop-shadow filter.
-   */
-  --shadow-elevation-300:
-    0 0 0.5px rgb(0 0 0 / 0.15), 0 1px 3px rgb(0 0 0 / 0.1),
-    0 5px 12px rgb(0 0 0 / 0.13);
-
   /* Figma type style display/large/emphasized: 57/64, tracking -0.1425px. */
   --text-display-large: 3.5625rem;
   --text-display-large--line-height: 4rem;

@@ -32,13 +32,13 @@ export function EventCard({ event }: { event: EventCardData }) {
       <div className="flex flex-1 flex-col items-start gap-6 rounded-b-xl bg-white p-6">
         <div className="flex w-full flex-col gap-4">
           {event.dateTime ? (
-            <p className="font-omnes text-sm leading-5 font-medium text-red-500">
+            <p className="font-omnes text-sm leading-5 font-medium text-red-800">
               {event.dateTime}
             </p>
           ) : null}
 
           <div className="flex flex-col gap-2">
-            <h3 className="font-omnes text-grey-800 text-[22px] leading-7 font-medium">
+            <h3 className="font-omnes text-grey-800 text-title-large font-medium">
               {event.title}
             </h3>
             {event.location ? (
@@ -59,9 +59,10 @@ export function EventCard({ event }: { event: EventCardData }) {
             className="font-omnes border-grey-400 text-grey-800 hover:bg-grey-800 hover:border-grey-800 mt-auto inline-flex items-center gap-2 rounded-full border px-4 py-2.5 text-base leading-6 font-medium whitespace-nowrap transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-purple-500"
           >
             {event.ctaText}
+            <span className="sr-only"> for {event.title}</span>
             <ArrowUpRightIcon />
             {isExternal(event.ctaHref) ? (
-              <span className="sr-only">(opens in a new tab)</span>
+              <span className="sr-only"> (opens in a new tab)</span>
             ) : null}
           </a>
         ) : null}
