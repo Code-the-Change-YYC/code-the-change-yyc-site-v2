@@ -47,16 +47,19 @@ type Props = {
   className?: string;
   /** Any CSS colour value. Defaults to the purple header colour. */
   color?: string;
+  /** Vertical mirror: squares rise from the bottom edge instead of hanging. */
+  flip?: boolean;
 };
 
 export function PixelDivider({
   className = "",
   color = "var(--color-purple-500)",
+  flip = false,
 }: Props) {
   return (
     <div className={`overflow-hidden ${className}`} aria-hidden="true">
       <svg
-        className="block h-auto w-full min-w-[1280px]"
+        className={`block h-auto w-full min-w-[1280px] ${flip ? "-scale-y-100" : ""}`}
         viewBox="0 0 1280 120"
         shapeRendering="crispEdges"
         fill={color}
