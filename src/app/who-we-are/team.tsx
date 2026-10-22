@@ -6,7 +6,7 @@ import { TEAM_QUERY, toTeamMembers, type TeamResponse } from "./team-data";
 export async function Team() {
   const data = await contentfulFetchOrNull<TeamResponse>({
     query: TEAM_QUERY,
-    tags: ["adminTeamMember", "technicalTeam", "alumni"],
+    tags: ["adminTeamMember", "technicalTeam", "alumni", "project"],
   });
   const members = data ? toTeamMembers(data) : [];
 

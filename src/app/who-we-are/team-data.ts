@@ -1,7 +1,7 @@
 export const TEAM_QUERY = `
   query TeamMembers {
     adminTeamMemberCollection(order: order_ASC) {
-      items { sys { id } name position linkedin team order isTeamLead pfp { url } }
+      items { sys { id } name position linkedin team isTeamLead pfp { url } }
     }
     technicalTeamCollection {
       items {
@@ -33,7 +33,7 @@ type PersonItem = {
 
 export type TeamResponse = {
   adminTeamMemberCollection: {
-    items: (PersonItem & { team: string | null; order: number | null })[];
+    items: (PersonItem & { team: string | null })[];
   };
   technicalTeamCollection: {
     items: (PersonItem & { project: { name?: string | null } | null })[];
@@ -159,7 +159,11 @@ export function membersFor(
     } else {
       // Someone can be both an admin and a developer; show them once.
       const seen = new Set<string>();
-      result = result.filter((m) => !seen.has(m.name) && seen.add(m.name));
+      result = result.filter(
+        (m) =>
+          !seen.has(m.linkedinUrl ?? m.name) &&
+          seen.add(m.linkedinUrl ?? m.name),
+      );
     }
   }
   return result.toSorted((a, b) => Number(b.isTeamLead) - Number(a.isTeamLead));

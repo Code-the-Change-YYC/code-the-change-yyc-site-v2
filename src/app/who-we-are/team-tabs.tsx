@@ -50,6 +50,11 @@ export function TeamTabs({ members }: { members: TeamMember[] }) {
   } as CSSProperties;
   const activeIndex = CATEGORIES.indexOf(activeCategory);
 
+  function selectCategory(category: Category) {
+    setActiveCategory(category);
+    setProject(null);
+  }
+
   function handleKeyDown(event: KeyboardEvent<HTMLButtonElement>) {
     let nextIndex: number;
     if (event.key === "ArrowRight") nextIndex = activeIndex + 1;
@@ -60,7 +65,7 @@ export function TeamTabs({ members }: { members: TeamMember[] }) {
     event.preventDefault();
     const next =
       CATEGORIES[(nextIndex + CATEGORIES.length) % CATEGORIES.length];
-    setActiveCategory(next);
+    selectCategory(next);
     tabRefs.current[next]?.focus();
   }
 
@@ -85,7 +90,7 @@ export function TeamTabs({ members }: { members: TeamMember[] }) {
               aria-selected={selected}
               aria-controls={`${baseId}-panel`}
               tabIndex={selected ? 0 : -1}
-              onClick={() => setActiveCategory(category)}
+              onClick={() => selectCategory(category)}
               onKeyDown={handleKeyDown}
               className={`font-omnes text-label-large rounded-t-xl px-4 py-2 font-medium whitespace-nowrap ${FOCUS} ${
                 selected
@@ -105,7 +110,7 @@ export function TeamTabs({ members }: { members: TeamMember[] }) {
         aria-labelledby={`${baseId}-tab-${activeCategory}`}
         tabIndex={0}
         style={panelVars}
-        className={`rounded-tr-[20px] rounded-b-[20px] bg-green-50 px-0 py-6 md:px-6 lg:px-16 lg:py-12 ${FOCUS} ${
+        className={`rounded-tr-[20px] rounded-b-[20px] bg-green-50 px-3 py-6 md:px-6 lg:px-16 lg:py-12 ${FOCUS} ${
           activeIndex === 0 ? "" : "rounded-tl-[20px]"
         } min-h-[calc(var(--rows-base)*263px+(var(--rows-base)-1)*24px+48px+48px)] md:min-h-[calc(var(--rows-md)*263px+(var(--rows-md)-1)*24px+48px+48px)] lg:min-h-[calc(var(--rows-lg)*263px+(var(--rows-lg)-1)*24px+48px+96px)]`}
       >
@@ -113,7 +118,7 @@ export function TeamTabs({ members }: { members: TeamMember[] }) {
           <div
             role="group"
             aria-label="Filter by project"
-            className="mb-4 flex flex-wrap gap-x-4 gap-y-2 px-4 md:px-0"
+            className="mb-4 flex flex-wrap gap-x-4 gap-y-2 px-0"
           >
             <FilterChip
               label="All"
@@ -160,8 +165,10 @@ function FilterChip({
       type="button"
       aria-pressed={pressed}
       onClick={onClick}
-      className={`text-label-large px-3 py-1.5 font-medium text-green-900 ${FOCUS} ${
-        pressed ? "rounded-lg bg-green-200" : "rounded-full bg-green-50"
+      className={`text-label-large px-3 py-1.5 font-medium ${FOCUS} ${
+        pressed
+          ? "rounded-lg bg-green-800 text-green-50"
+          : "rounded-full bg-green-100 text-green-900"
       }`}
     >
       {label}

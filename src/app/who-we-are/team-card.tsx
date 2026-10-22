@@ -58,7 +58,7 @@ export function TeamCard({ name, role, linkedinUrl, photoUrl }: TeamMember) {
       {photoUrl ? (
         <Image
           src={photoUrl}
-          alt={name}
+          alt=""
           fill
           sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw"
           className="object-cover"
